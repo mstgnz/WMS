@@ -1,0 +1,187 @@
+
+{% if request.user.firm.supply %}
+    <ul class="nav nav-pills flex-column">
+        <li class="nav-item">
+            <a class="nav-link active" href="#"><i class="fa fa-building"></i> Tedarikçi <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#"><i class="fa fa-handshake-o"></i> Siparişler</a>
+        </li>
+    </ul>
+
+{% else %}
+
+<ul class="accordion">
+    <li>
+        <h6>
+            <i class="fa fa-building"></i>
+            <a href="{% url 'firm:worksite' %}">Şantiye</a>
+            <span><i class="far fa-plus-square"></i></span>
+        </h6>
+        <p>
+            <a href="{% url 'firm:worksite_add' %}"><i class="fas fa-ellipsis-v"></i> Ekle</a>
+            <a href="{% url 'firm:worksite_list' %}"><i class="fas fa-ellipsis-v"></i> Liste</a>
+            <a href="{% url 'firm:worksite' %}"><i class="fas fa-ellipsis-v"></i> Özet</a>
+        </p>
+    </li>
+    <li>
+        <h6>
+            <i class="far fa-building"></i>
+            <a href="{% url 'firm:subcontractor' %}">Taşeron</a>
+            <span><i class="far fa-plus-square"></i></span>
+        </h6>
+        <p>
+            <a href="{% url 'firm:subcontractor_add' %}"><i class="fas fa-ellipsis-v"></i> Ekle</a>
+            <a href="{% url 'firm:subcontractor_list' %}"><i class="fas fa-ellipsis-v"></i> Liste</a>
+            <a href="{% url 'firm:subcontractor' %}"><i class="fas fa-ellipsis-v"></i> Özet</a>
+        </p>
+    </li>
+    <li>
+        <h6>
+            <i class="fas fa-file-word"></i>
+            <a href="{% url 'firm:contract' %}">Sözleşme</a>
+            <span><i class="far fa-plus-square"></i></span>
+        </h6>
+        <p>
+            <a href="{% url 'firm:contract_add' %}"><i class="fas fa-ellipsis-v"></i> Ekle</a>
+            <a href="{% url 'firm:contract_list' %}"><i class="fas fa-ellipsis-v"></i> Liste</a>
+            <a href="{% url 'firm:contract' %}"><i class="fas fa-ellipsis-v"></i> Özet</a>
+        </p>
+    </li>
+    <li>
+        <h6>
+            <i class="fas fa-file-word"></i>
+            <a href="{% url 'firm:contract_specification_add' %}">Şartname</a>
+            <span><i class="far fa-plus-square"></i></span>
+        </h6>
+        <p>
+            <a href="{% url 'firm:contract_specification_add' %}"><i class="fas fa-ellipsis-v"></i> Ekle</a>
+            <a href="{% url 'firm:contract_specification_list' %}"><i class="fas fa-ellipsis-v"></i> Liste</a>
+        </p>
+    </li>
+    <li>
+        <h6>
+            <i class="fab fa-product-hunt"></i>
+            <a href="{% url 'firm:project_add' %}">Proje</a>
+            <span><i class="far fa-plus-square"></i></span>
+        </h6>
+        <p>
+            <a href="{% url 'firm:project_add' %}"><i class="fas fa-ellipsis-v"></i> Ekle</a>
+            <a href="{% url 'firm:project_list' %}"><i class="fas fa-ellipsis-v"></i> Liste</a>
+        </p>
+    </li>
+    <li>
+        <h6>
+            <i class="fas fa-dharmachakra"></i>
+            <a href="{% url 'progress:discovery' %}">Keşif</a>
+            <span><i class="far fa-plus-square"></i></span>
+        </h6>
+        <p>
+            <a href="{% url 'progress:discovery_add' %}"><i class="fas fa-ellipsis-v"></i> Ekle</a>
+            <a href="{% url 'progress:discovery_detail' %}"><i class="fas fa-ellipsis-v"></i>  Liste</a>
+            <a href="{% url 'progress:discovery' %}"><i class="fas fa-ellipsis-v"></i>  Özet</a>
+        </p>
+    </li>
+    <li>
+        <h6>
+            <i class="far fa-credit-card"></i>
+            <a href="{% url 'progress:index' %}">Hakediş</a>
+            <span><i class="far fa-plus-square"></i></span>
+        </h6>
+        <p>
+            <a href="{% url 'progress:progress_add' %}"><i class="fas fa-ellipsis-v"></i> Ekle</a>
+            <a href="{% url 'progress:progress_list' %}"><i class="fas fa-ellipsis-v"></i> Liste</a>
+            <a href="{% url 'progress:progress_add_sub' %}"><i class="fas fa-ellipsis-v"></i> Taşeron</a>
+            <a href="{% url 'progress:index' %}"><i class="fas fa-ellipsis-v"></i> Özet</a>
+        </p>
+    </li>
+    <li>
+        <h6>
+            <i class="fas fa-chart-area"></i>
+            <a href="{% url 'document:index' %}">Rapor</a>
+            <span><i class="far fa-plus-square"></i></span>
+        </h6>
+        <p>
+            <a href="{% url 'document:report_add' %}"><i class="fas fa-ellipsis-v"></i> Ekle</a>
+            <a href="{% url 'document:report_list' %}"><i class="fas fa-ellipsis-v"></i> Liste</a>
+            <a href="{% url 'document:index' %}"><i class="fas fa-ellipsis-v"></i> Özet</a>
+        </p>
+    </li>
+    <li>
+        <h6>
+            <i class="fas fa-file-contract"></i>
+            <a href="{% url 'document:index' %}">Tutanak</a>
+            <span><i class="far fa-plus-square"></i></span>
+        </h6>
+        <p>
+            <a href="{% url 'document:minutes_add' %}"><i class="fas fa-ellipsis-v"></i> Ekle</a>
+            <a href="{% url 'document:minutes_list' %}"><i class="fas fa-ellipsis-v"></i> Liste</a>
+            <a href="{% url 'document:index' %}"><i class="fas fa-ellipsis-v"></i> Özet</a>
+        </p>
+    </li>
+    <li>
+        <h6>
+            <i class="fas fa-file-contract"></i>
+            <a href="{% url 'document:writing_add' %}">Üst Yazı</a>
+            <span><i class="far fa-plus-square"></i></span>
+        </h6>
+        <p>
+            <a href="{% url 'document:writing_add' %}"><i class="fas fa-ellipsis-v"></i> Ekle</a>
+            <a href="{% url 'document:writing_list' %}"><i class="fas fa-ellipsis-v"></i> Liste</a>
+        </p>
+    </li>
+    <li>
+        <h6>
+            <i class="fas fa-calculator"></i>
+            <a href="{% url 'accounting:index' %}">İrsaliye</a>
+            <span><i class="far fa-plus-square"></i></span>
+        </h6>
+        <p>
+            <a href="{% url 'accounting:waybill_add' %}"><i class="fas fa-ellipsis-v"></i> Ekle</a>
+            <a href="{% url 'accounting:waybill_list' %}"><i class="fas fa-ellipsis-v"></i> Liste</a>
+            <a href="{% url 'accounting:waybill_list' %}"><i class="fas fa-ellipsis-v"></i> Stok</a>
+            <a href="{% url 'accounting:index' %}"><i class="fas fa-ellipsis-v"></i> Özet</a>
+        </p>
+    </li>
+    <li>
+        <h6>
+            <i class="fas fa-truck"></i>
+            <a href="{% url 'accounting:order' %}">Sipariş</a>
+            <span><i class="far fa-plus-square"></i></span>
+        </h6>
+        <p>
+            <a href="{% url 'accounting:order_add' %}"><i class="fas fa-ellipsis-v"></i> Ekle</a>
+            <a href="{% url 'accounting:order_list' %}"><i class="fas fa-ellipsis-v"></i> Liste</a>
+            <a href="{% url 'accounting:order' %}"><i class="fas fa-ellipsis-v"></i> Özet</a>
+        </p>
+    </li>
+    <li>
+        <h6>
+            <i class="fas fa-users-cog"></i>
+            <a href="{% url 'accounting:administrative' %}">İdari İşler</a>
+            <span><i class="far fa-plus-square"></i></span>
+        </h6>
+        <p>
+            <a href="{% url 'accounting:worker_create' %}"><i class="fas fa-ellipsis-v"></i> Ekle</a>
+            <a href="{% url 'accounting:worker_list' %}"><i class="fas fa-ellipsis-v"></i> Liste</a>
+            <a href="{% url 'accounting:tally' %}"><i class="fas fa-ellipsis-v"></i> Puantaj</a>
+            <a href="{% url 'accounting:administrative' %}"><i class="fas fa-ellipsis-v"></i> Özet</a>
+        </p>
+    </li>
+    <li>
+        <h6>
+            <i class="fas fa-users"></i>
+            <a href="{% url 'user:staff_add' %}">Personel</a>
+            <span><i class="far fa-plus-square"></i></span>
+        </h6>
+        <p>
+            <a href="{% url 'user:staff_add' %}"><i class="fas fa-ellipsis-v"></i> Ekle</a>
+            <a href="{% url 'user:staff_list' %}"><i class="fas fa-ellipsis-v"></i> Liste</a>
+            <a href="{% url 'user:staff_permission' %}"><i class="fas fa-ellipsis-v"></i> İzinler</a>
+            <a href="{% url 'user:staff_worksite' %}"><i class="fas fa-ellipsis-v"></i> Şantiye</a>
+        </p>
+    </li>
+</ul>
+
+
+{% endif %}

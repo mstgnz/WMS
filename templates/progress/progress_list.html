@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="row">
+    <div class="col-xl-8 col-lg-11 col-md-12">
+        <div class="card">
+            <h5 class="card-header"><i class="fab fa-wpforms"></i> {{ title }} Liste </h5>
+            <div class="card-body">
+                <form method="post" class="waybill_form">
+                    {% csrf_token %}
+                    {{ form.worksite }}
+                    <span>seçilen şantiyeye göre hakedişler listelenecek</span>
+                    {{ form }}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

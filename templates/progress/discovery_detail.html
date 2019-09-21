@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-xl-9 col-lg-11 col-md-12">
+        <div class="card">
+            <h5 class="card-header"><i class="fab fa-wpforms"></i> {{ title }} Form</h5>
+            <div class="card-body">
+                <form method="post" class="contract_form">
+                    {% csrf_token %}
+                    {{ form.worksite }}
+                    <table class="table">
+                        <tr class="insert" style="border-bottom:solid 1px #ddd;">
+                            <td colspan="1" style="text-align:left; text-indent:5px; background:#ccc; width:10%;">Poz No</td>
+                            <td colspan="1" style="text-align:left; text-indent:5px; background:#ccc; width:38%;">Poz Adı</td>
+                            <td colspan="1" style="text-align:left; text-indent:5px; background:#ccc; width:8%;">Birim</td>
+                            <td colspan="1" style="text-align:left; text-indent:5px; background:#ccc; width:12%;">Miktar</td>
+                            <td colspan="1" style="text-align:left; text-indent:5px; background:#ccc; width:12%;">B.Fiyat</td>
+                            <td colspan="1" style="text-align:left; text-indent:5px; background:#ccc; width:12%;">Tutar</td>
+                            <td colspan="1" style="text-align:left; text-indent:5px; background:#ccc; width:4%;"></td>
+                            <td colspan="1" style="text-align:left; text-indent:5px; background:#ccc; width:4%;"></td>
+                        </tr>
+                    </table>
+                    <button type="submit" class="btn btn-outline-info button"><i class="fas fa-angle-right"></i> Keşif Güncelle <i class="fas fa-angle-left"></i></button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block css %}
+<style>
+    td{
+        padding: 0px !important;
+        margin: 0px !important;
+        text-align: center;
+    }
+    td a{
+        display:block;
+        padding:3px;
+    }
+    input{
+        width:100%;
+        text-indent:5px;
+    }
+    input[type="number"]{
+        text-align:right;
+    }
+    select[name="unit[]"]{
+        width:100%;
+        padding: 2px;
+        border:solid 1px #aaa;
+        text-indent:5px;
+    }
+</style>
+{% endblock %}
+
+{% block js %}
+<script>
+    $('input[type=number]').attr('min',0) // number input minimum değerleri 0 olarak ayarlandı. Eksi değer girilemesin.
+    $("select").change(function(e){
+        $('.indis').remove()
+        const form_serialize = $('.contract_form').serialize()
+        $.ajax({
+            url: '/progress/discovery/detail/',
+            method: 'POST',
+            data: form_serialize,
+            type: 'json',
+            success: function(result){
+                result = JSON.parse(result);
+                $.each(result, function(key, value){
+                    $('<tr class="indis" style="border-bottom:solid 1px #ddd;"><td colspan="1"><input type="text" name="no[]" value="'+value.fields.no+'" readonly /></td><td colspan="1"><input type="text" name="name[]" value="'+value.fields.name+'" required /></td><td colspan="1"><select name="unit[]"><option value="'+value.fields.unit+'" selected>'+value.fields.unit+'</option><option value="MT">MT</option><option value="M2">M2</option><option value="M3">M3</option><option value="AD">AD</option><option value="KG">KG</option><option value="TON">TON</option><option value="SET">SET</option><option value="YEV">YEVMİYE</option></select></td><td colspan="1"><input type="number" name="amount[]" value="'+value.fields.amount+'" step="any" required /></td><td colspan="1"><input type="number" name="price[]" value="'+value.fields.price+'" step="any" readonly /></td><td colspan="1"><input type="number" name="total[]" value="'+value.fields.total+'" step="any" readonly /></td><td colspan="1"><a href="'+value.pk+'" title="Analiz"><i class="fas fa-info-circle"></i></a></td><td colspan="1"><a href="'+value.pk+'/delete" title="Delete"><i class="fas fa-trash"></i></a></td></tr>').insertAfter($('.insert'))
+                })
+            }
+        })
+    })
+    // Form her değiştiğinde değiştirilen satır güncellenecektir.
+    $('form').change(()=>{
+        material_mount = $("input[name='amount[]']").serializeArray()
+        material_price = $("input[name='price[]']").serializeArray()
+        $('input[name="total[]"]').each(function(k,v){
+            $(this).val((parseFloat(material_mount[k].value).toFixed(2)*parseFloat(material_price[k].value).toFixed(2)).toFixed(2))
+        })
+    })
+</script>
+{% endblock %}

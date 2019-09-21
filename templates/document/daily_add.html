@@ -1,0 +1,275 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+    <div class="col-xl-8 col-lg-11 col-md-12">    
+        <!-- *** GÜNLÜK RAPOR *** -->
+        <form method="post"> {% csrf_token %}
+        <table class="table" style="border:dashed 2px #ccc; background:#fff; margin-bottom:100px; font-size:12px;">
+            <tr style="border-bottom:solid 1px #ddd;">
+                <th colspan="8" style="text-align:center; background:#eee;"><b>GÜNLÜK RAPOR</b></th>
+            </tr>
+            <tr>
+                <td style="width:30px;"></td>
+                <td style="width:100px; border-bottom:solid 1px #ddd;"><b>ŞANTİYE</b></td>
+                <td colspan="2" style="width:130px; border-bottom:solid 1px #ddd;">
+                    <select name="worksite" required >
+                        <option value="">Seçiniz</option>
+                    {% for worksite in worksites %}
+                    <!-- user.worksite.all ile kullanıcıya atanan şantiyeler listesi gelir fakat şantiye aktif mi değilmi kontrolü yapılmalıdır. -->
+                    <!-- backend tarafında ise bu listeleme self.request.user.worksite.filter(active=True) şeklindedir. -->
+                            <option value="{{ worksite.pk }}">{{ worksite }}</option>
+                    {% endfor %}
+                </select>
+                </td>
+                <td><b>TARİH</b></td>
+                <td colspan="2"><input type="date" name="date" required /></td>
+                <td style="width:30px;"></td>
+            </tr>
+            <tr><th colspan="8"></th></tr>
+            <tr>
+                <th></th>
+                <th colspan="2">Çalışma Saatleri</th>
+                <th>Mesai Saatleri</th>
+                <th>Sıcaklık</th>
+                <th>Hava Durumu</th>
+                <th>Rüzgar</th>
+                <th></th>
+            </tr>
+            <tr>
+                <td></td>
+                <td colspan="2"><input type="text" name="works" required placeholder="Çalışma Saatleri" /></td>
+                <td><input type="text" name="hours" required placeholder="Mesai Saatleri" /></td>
+                <td><input type="text" name="temperature" required placeholder="Sıcaklık" /></td>
+                <td><input type="text" name="weather" required placeholder="Hava Durumu" /></td>
+                <td><input type="text" name="wind" required placeholder="Rüzgar" /></td>
+                <td></td>
+            </tr>
+            <tr><th colspan="8" style="background:#eee;">İMALAT LİSTESİ</th></tr>
+            <tr><td class="production" colspan="8"><input type="text" required name="production[]" /></td></tr>
+            <tr><td class="production" colspan="8"><input type="text" name="production[]" /></td></tr>
+            <tr><td class="production" colspan="8"><input type="text" name="production[]" /></td></tr>
+            <tr><td class="production" colspan="8"><input type="text" name="production[]" /></td></tr>
+            <tr><td class="production" colspan="8"><input type="text" name="production[]" /></td></tr>
+            <tr class="production_append_remove">
+                <td colspan=8>
+                    <a href="javascript:void(0)" class="production_append"><i class="fas fa-plus-square fa-lg"></i></a>
+                    <a href="javascript:void(0)" class="production_remove"><i class="fas fa-minus-square fa-lg"></i></a>
+                </td>
+            </tr>
+            <tr><th colspan="8" style="background:#eee;">ÇALIŞANLAR LİSTESİ</th></tr>
+            <tr>
+                <th></th>
+                <th colspan="2">DİREKT</th>
+                <th>MEVCUT</th>
+                <th colspan="2">ENDİREKT</th>
+                <th>MEVCUT</th>
+                <th></th>
+            </tr>
+            <tr class="workers">
+                <td></td>
+                <td colspan="2"><input type="text" name="direct[]" required placeholder="1.Ekip" /></td>
+                <td><input type="number" name="direct_count[]" min=0 required /></td>
+                <td colspan="2"><input type="text" name="indirect[]" required placeholder="Proje Müdürü" /></td>
+                <td><input type="number" name="indirect_count[]" min=0 required /></td>
+                <td></td>
+            </tr>
+            <tr class="workers">
+                <td></td>
+                <td colspan="2"><input type="text" name="direct[]" placeholder="2.Ekip" /></td>
+                <td><input type="number" name="direct_count[]" min=0 /></td>
+                <td colspan="2"><input type="text" name="indirect[]" placeholder="Şantiye Şefi" /></td>
+                <td><input type="number" name="indirect_count[]" min=0 /></td>
+                <td></td>
+            </tr>
+            <tr class="workers">
+                <td></td>
+                <td colspan="2"><input type="text" name="direct[]" placeholder="3.Ekip" /></td>
+                <td><input type="number" name="direct_count[]" min=0 /></td>
+                <td colspan="2"><input type="text" name="indirect[]" placeholder="Saha Mühendisi / Teknikeri" /></td>
+                <td><input type="number" name="indirect_count[]" min=0 /></td>
+                <td></td>
+            </tr>
+            <tr class="workers">
+                <td></td>
+                <td colspan="2"><input type="text" name="direct[]" placeholder="4.Ekip" /></td>
+                <td><input type="number" name="direct_count[]" min=0 /></td>
+                <td colspan="2"><input type="text" name="indirect[]" placeholder="Harita Mühendisi / Teknikeri" /></td>
+                <td><input type="number" name="indirect_count[]" min=0 /></td>
+                <td></td>
+            </tr>
+            <tr class="workers">
+                <td></td>
+                <td colspan="2"><input type="text" name="direct[]" placeholder="5.Ekip" /></td>
+                <td><input type="number" name="direct_count[]" min=0 /></td>
+                <td colspan="2"><input type="text" name="indirect[]" placeholder="ISG Personeli" /></td>
+                <td><input type="number" name="indirect_count[]" min=0 /></td>
+                <td></td>
+            </tr>
+            <tr class="workers">
+                <td></td>
+                <td colspan="2"><input type="text" name="direct[]" placeholder="6.Ekip" /></td>
+                <td><input type="number" name="direct_count[]" min=0 /></td>
+                <td colspan="2"><input type="text" name="indirect[]" placeholder="İdari İşler" /></td>
+                <td><input type="number" name="indirect_count[]" min=0 /></td>
+                <td></td>
+            </tr>
+            <tr class="workers">
+                <td></td>
+                <td colspan="2"><input type="text" name="direct[]" placeholder="7.Ekip" /></td>
+                <td><input type="number" name="direct_count[]" min=0 /></td>
+                <td colspan="2"><input type="text" name="indirect[]" placeholder="Formen" /></td>
+                <td><input type="number" name="indirect_count[]" min=0 /></td>
+                <td></td>
+            </tr>
+            <tr class="worker_append_remove">
+                <td colspan=8>
+                    <a href="javascript:void(0)" class="worker_append"><i class="fas fa-plus-square fa-lg"></i></a>
+                    <a href="javascript:void(0)" class="worker_remove"><i class="fas fa-minus-square fa-lg"></i></a>
+                </td>
+            </tr>
+            <tr><th colspan="8" style="background:#eee;">NOTLAR</th></tr>
+            <tr><td class="note" colspan="8"><input type="text" name="note[]" /></td></tr>
+            <tr><td class="note" colspan="8"><input type="text" name="note[]" /></td></tr>
+            <tr class="note_append_remove">
+                <td colspan=8>
+                    <a href="javascript:void(0)" class="note_append"><i class="fas fa-plus-square fa-lg"></i></a>
+                    <a href="javascript:void(0)" class="note_remove"><i class="fas fa-minus-square fa-lg"></i></a>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="8"><button type="submit" class="btn btn-outline-info button"><i class="fas fa-angle-right"></i> GÜNLÜK RAPOR KAYIT <i class="fas fa-angle-left"></i></button></td>
+            </tr>
+        </table>
+        </form>
+    </div>
+
+{% endblock %}
+
+
+{% block css %}
+<style>
+    input{
+        border:none;
+        border-bottom:solid 1px red;
+        width: 100%;
+    }
+    input:read-only {
+        border:none;
+    }
+    input[name="direct[]"]{
+        border-right: solid 1px #ddd;
+        width: 250px;
+    }
+    input[name="indirect[]"]{
+        border-left: solid 1px #ddd;
+        border-right: solid 1px #ddd;
+        width: 250px;
+    }
+    .production, .note{
+        padding: 0px !important;
+    }
+    .production input, .note input{
+        padding: 5px;
+        text-indent: 10px;
+    }
+    .days th{
+        padding: 2px !important;
+        text-align: center;
+    }
+    .days th input{
+        text-align: center;
+    }
+    .workers td{
+        padding: 0 5px !important;
+        text-align: center;
+    }
+    .workers td input{
+        text-indent: 10px;
+        padding: 5px;
+    }
+    .production_append_remove, .note_append_remove, .worker_append_remove{
+        font-size: 15px;
+    }
+</style>
+{% endblock %}
+
+{% block js %}
+<script>
+    // ŞANTİYE SEÇİMİ İLE TAŞERONLAR LİSTELENİYOR
+    $("select[name=worksite], input[type=date]").change(()=>{
+        let form_serialize = $('form').serialize()
+        $.ajax({
+            url: '/document/report/daily/add/',
+            method: 'POST',
+            data: form_serialize,
+            type: 'json',
+            success: (result)=>{
+                result = JSON.parse(result)
+                if(result.length){
+                    // Kayıt bulunduğuğu için boş form temizleniyor
+                    $('.production').remove()
+                    $('.workers').remove()
+                    $('.note').remove()
+                    $('td button').html("GÜNLÜK RAPOR GÜNCELLE")
+                    // Kayıtlar forma işleniyor
+                    $('input[name="works"]').val(result[0].fields.works)
+                    $('input[name="hours"]').val(result[0].fields.hours)
+                    $('input[name="temperature"]').val(result[0].fields.temperature)
+                    $('input[name="weather"]').val(result[0].fields.weather)
+                    $('input[name="wind"]').val(result[0].fields.wind)
+                    for(let i=0; i<result[0].fields.production.split('<x>').length; i++){
+                        $(`<tr><td class="production" colspan="8"><input type="text" name="production[]" value=${result[0].fields.production.split('<x>')[i]} /></td></tr>`).insertBefore($('.production_append_remove'))
+                    }
+                    for(let i=0; i<result[0].fields.indirect.split('<x>').length; i++){
+                        $(`<tr class="workers">
+                            <td></td>
+                            <td colspan="2"><input type="text" name="direct[]" 
+                            value=${result[0].fields.direct.split('<x>')[i] ? result[0].fields.direct.split('<x>')[i] : ""} /></td>
+                            <td><input type="number" name="direct_count[]" min=0 
+                            value=${result[0].fields.direct.split('<x>')[i] ? parseInt(result[0].fields.direct_count.split('<x>')[i]) : ""} /></td>
+                            <td colspan="2"><input type="text" name="indirect[]" 
+                            value=${result[0].fields.indirect.split('<x>')[i] ? result[0].fields.indirect.split('<x>')[i] : ""} /></td>
+                            <td><input type="number" name="indirect_count[]" min=0 
+                            value=${result[0].fields.indirect.split('<x>')[i] ? parseInt(result[0].fields.indirect_count.split('<x>')[i]) : ""} /></td>
+                            <td></td>
+                        </tr>`).insertBefore($('.worker_append_remove'))
+                    }
+                    for(let i=0; i<result[0].fields.note.split('<x>').length; i++){
+                        $(`<tr class="note_insert"><td class="production" colspan="8"><input type="text" name="note[]" value=${result[0].fields.note.split('<x>')[i]} /></td></tr>`).insertBefore($('.note_append_remove'))
+                    }
+                }else{
+                    $('td button').html("GÜNLÜK RAPOR KAYIT")
+                }
+            }
+        })
+    })
+    $('a.production_append').click(()=>{
+        $('<tr class="production_insert"><td class="production" colspan="8"><input type="text" name="production[]" /></td></tr>').insertBefore($('.production_append_remove'))
+    })
+    $('a.production_remove').click(()=>{
+        $('.production_insert').last().remove();
+    })
+    $('a.worker_append').click(()=>{
+        $(`<tr class="workers worker_insert">
+            <td></td>
+            <td colspan="2"><input type="text" name="direct[]" /></td>
+            <td><input type="number" name="direct_count[]" min=0 /></td>
+            <td colspan="2"><input type="text" name="indirect[]" /></td>
+            <td><input type="number" name="indirect_count[]" min=0 /></td>
+            <td></td>
+        </tr>`).insertBefore($('.worker_append_remove'))
+    })
+    $('a.worker_remove').click(()=>{
+        $('.worker_insert').last().remove();
+    })
+    $('a.note_append').click(()=>{
+        $('<tr class="note_insert"><td class="production" colspan="8"><input type="text" name="note[]" /></td></tr>').insertBefore($('.note_append_remove'))
+    })
+    $('a.note_remove').click(()=>{
+        $('.note_insert').last().remove();
+    })
+</script>
+{% endblock %}
+
+

@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-xl-8 col-lg-11 col-md-12">
+        <div class="card">
+            <h5 class="card-header"><i class="fab fa-wpforms"></i> {{ title }} Form </h5>
+            <div class="card-body">
+                <form method="post" class="waybill_form">
+                    {% csrf_token %}
+                    <table class="table">
+                        <tr style="border-bottom:solid 1px #ddd;">
+                            <td colspan="1" style="width:20%"></td>
+                            <td colspan="1" style="width:30%"></td>
+                            <td colspan="1" style="width:20%"></td>
+                            <td colspan="1" style="width:30%"></td>
+                        </tr>
+                        <tr style="border-bottom:solid 1px #ddd;">
+                            <td colspan="1" style="text-align:left; text-indent:5px; background:#ccc;">Sipariş Veren</td>
+                            <td colspan="1">{{ order.orderer }}</td>
+                            <td colspan="1" style="text-align:left; text-indent:5px; background:#ccc;">Termin Tarihi</td>
+                            <td colspan="1">{{ order.deadline }}</td>
+                        </tr>
+                        <tr style="border-bottom:solid 1px #ddd;">
+                            <td colspan="1" style="text-align:left; text-indent:5px; background:#ccc;">Notlar</td>
+                            <td colspan="3">{{ order.note }}</td>
+                        </tr>
+                    </table>
+                    <table class="table">
+                        <tr style="border-bottom:solid 1px #ddd;">
+                            <td colspan="1" style="width:45%"></td>
+                            <td colspan="1" style="width:10%"></td>
+                            <td colspan="1" style="width:15%"></td>
+                        </tr>
+                        <tr style="border-bottom:solid 1px #ddd;">
+                            <td colspan="1" style="text-align:left; text-indent:5px; background:#ccc;">Malzeme Adı</td>
+                            <td colspan="1" style="text-align:left; text-indent:5px; background:#ccc;">Birimi</td>
+                            <td colspan="1" style="text-align:left; text-indent:5px; background:#ccc;">Miktar</td>
+                        </tr>
+                        <!-- LOOP START -->
+                        {% for material in materials %}
+                        <tr style="border-bottom:solid 1px #ddd;">
+                            <td colspan="1"><input type="text" name="name[]" value="{{ material.name }}" required /></td>
+                            <td class="unit" colspan="1">
+                                <select name="unit[]" class="unit">
+                                    <option value="{{ material.unit }}" selected>{{ material.unit }}</option>
+                                    <option value="MT">MT</option>
+                                    <option value="M2">M2</option>
+                                    <option value="M3">M3</option>
+                                    <option value="AD">AD</option>
+                                    <option value="KG">KG</option>
+                                    <option value="TON">TON</option>
+                                    <option value="SET">SET</option>
+                                </select>
+                            </td>
+                            <td colspan="1"><input type="number" name="amount[]" value="{{ material.amount }}" min=0 value=0 step="any" required /></td>
+                        </tr>
+                        {% endfor %}
+                        <!-- LOOP END -->
+                        <tr class="insert">
+                            <td colspan=5>
+                                <a href="javascript:void(0)" class="add"><i class="fas fa-plus-square fa-lg"></i></a>
+                                <a href="javascript:void(0)" class="del"><i class="fas fa-minus-square fa-lg"></i></a>
+                            </td>
+                        </tr>
+                    </table>
+                   <!-- <button type="submit" class="btn btn-outline-info button"><i class="fas fa-angle-right"></i> {{ title }} <i class="fas fa-angle-left"></i></button> -->
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block css %}
+<style>
+    td{
+        padding: 0px !important;
+        margin: 0px !important;
+    }
+    input{
+        width:100%;
+        text-indent:5px;
+    }
+    input[type="number"]{
+        text-align:right;
+    }
+    select[name="unit[]"]{
+        width:100%;
+        padding: 2px;
+        text-indent:5px;
+        border:solid 1px #aaa;
+    }
+    .indis input{
+        background:#eee;
+    }
+    input[type="date"]{
+        border:solid 1px #aaa;
+    }
+</style>
+{% endblock %}
+
+{% block js %}
+<script>
+    // POST UPDATE İŞLEMİ YAPILANA KADAR READONLY KALACAK
+    $('input').attr('readonly',true)
+    // ALTTAKİ KODLAR POST İŞLEMİNDE GEREKLİDİR
+    $('input[name="total[]"]').attr('readonly',true)
+    $('a.add').click(()=>{
+        $('<tr class="append" style="border-bottom:solid 1px #ddd;"><td colspan="1"><input type="text" name="name[]" required /></td><td class="unit" colspan="1"><select name="unit[]" class="unit"><option value="MT">MT</option><option value="M2">M2</option><option value="M3">M3</option><option value="AD">AD</option><option value="KG">KG</option><option value="TON">TON</option><option value="SET">SET</option></select></td><td colspan="1"><input type="number" name="amount[]" min=0 value=0 step="any" required /></td></tr>').insertBefore($('.insert'))
+    })
+
+    $('a.del').click(()=>{
+        $('.append').last().remove();
+    })
+
+</script>
+{% endblock %}

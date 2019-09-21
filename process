@@ -1,0 +1,93 @@
+KURULUM
+
+Python : kurulduktan sonra path ataması yapılmadıysa manuel olarak yapmalısınız
+pip install django
+pip install mysqlclient
+pip install Pillow
+pip install django_cleanup
+
+site admin girişi
+mail : admin@admin.com
+şifre: admin
+
+mysql veritabanı : create table worksite character set utf8 collate utf8_turkish_ci;
+sql : worksite.sql
+
+KULLANIM ve TANIMLAR
+
+user modeli -> user bütün işlemleri - izin ayarları - profil - login - logout
+firm modeli -> şantiye - taşeron - sözleşme - şartname - proje
+progress modeli -> hakediş - keşif - analiz
+accounting modeli -> işçi giriş çıkış - irsaliye - fatura - puantaj
+logistics modeli -> siparişler - nakliyeler - depo
+document modeli -> tutak ve üzt yazılar
+
+User modeli direk olarak firma modeline bağlıdır. Firması olmayan bir kullanıcı olamaz. Bu yüzden site yöneticisine ait bir örnek firma tanımlıdır. Testlerini bu firma üzerinde yapar.
+
+Firma için tüm modüllere erişim hakkı olan bir base user tanımlanır. Firma admin.
+Firma admin modüller içersinde ekleme çıkarma görüntüleme işlemleri için kullanıcı oluşturabilir.
+Firma admin tarafından oluşturulan kullanıcılar atandıkları modüllere veri girişi yapabilir.
+Firmanın birden fazla şantiyesi olacağı için eklediği kullanıcılarda şantiyelere göre atanabilmektedir. Bu sayede her şantiyenin personeli ayrılmış olacaktır.
+Şantiye ataması yapılmayan kullanıcı hiç bir hakka sahip değildir. İzin hakları ayarlansa bile şantiye ataması yapılmadığından veri girişi yapamaz.
+
+Firma admin tarafından deaktif edilen şantiyelere veri girişi iptal edilmiş olur. Şantiyeler aktif olduğu sürece veri girişine açıktır.
+Tüm modüller şantiyeler üzerinden işlem görür.
+
+Bir firma başka firmaları göremez. Başka firmaların şantiyelerini ve kullanıcılarını göremez!
+
+Sol kısımda yer alan menüler işlem sırasına göre listelenmiştir. Şantiye eklenmeden diğer modüller kullanılamaz.
+
+Silsile...!
+
+Site Admin  :   Firma ve firma admin kullanıcısını oluşturur. Oluşturulan firma admin tüm yetkilere sahiptir.
+Firma Admin :   Şantiyeleri, Şantiyelere ait taşeronları ve modüllere göre kullanıcı ekler.
+                Firma admin modüllerin veri girişi için göevlendirdiği kişilere hesap açabilir. Ancak her kullanıcı için şantiye ve izin hakları atanmalıdır.
+                Şantiye, taşeron, sözleşme, şartname modülleri firma admin tarafından girilmelidir. Firma admin eğer isterse eklediği kullanıcılara bu modüllere erişim hakkı verebilir.
+                Her modül için ayrı ayrı kullanıcı eklenip atanabilir. Tek bir kullanıcı üzerinden de atamalar yapılarak veri girişi yapılabilir.
+                Kullanıcı oluşturma sınırı şu an için yok.
+
+Şantiye     : Yapıldı. Firma admin tarafından eklenir.
+Taşeron     : Yapıldı. Şantiye eklenmeden taşeron eklenemez. Eklenen şantiyelere göre taşeron oluşturulabilinir.
+Sözleşme    : Yapıldı. Şantiyelere göre sözleşme eklenebilir.
+şartname    : Yapıldı. Sözleşmelere ek şartnameler eklenebilir.
+proje       : Yapıldı. Şantiyelere göre proje eklenebilir.
+keşif       : Yapıldı. Şantiyelere göre keşif eklenebilir. Keşif için ayrıca analiz eklenmelidir. Keşif listesinden analiz eklenebilinir. Analizlere göre fiyatlar oluşacaktır. Keşif eklenmeden hakediş eklenemez. hakediş icmal sayfası keşif listesine göre oluşmaktadır.
+hakediş     : Yapıldı. Hakedişler icmal sayfası keşife göre lstelenmektedir. Taşeron hakedişleri ise icmal sayfası değiştirilebilir. Veri girişi açık olan alanlar kırmızı borderlı olan alanlardır. Geri kalan alanlar otomatik gelecektir.
+rapor       : Yapılacak. şantiye günlük ve aylık ilerleme raporları eklenecektir.
+tutanak     : Yapıldı. şantiyelere göre tutanaklar eklenebilir.
+üst yazı    : Yapıldı. şantiyelere göre üst yazı eklenebilir.
+irsaliye    : Yapıldı. şantiyelere göre irsaliye eklenebilir.
+sipariş     : Yapıldı. şantiyelere göre sipariş eklenebilir.
+İdari işler : Yapıldı. şantiyelere göre işçi girişi eklenebilir. İşçiler için puantaj günlük olarak yapılmalıdır.
+personel    : Yapıldı. şantiyelere firma admin tarafından kullanıcı oluşturularak izinler atanabilir.
+
+
+Veri girişi işlemleri bittikten sonra bu verilere göre raporlamalar yapılacaktır. Maliyetler otomatik olarak hesaplanacaktır. Veri girişleri doğru olmalıdır.
+
+Her şantiye için maliyet hesaplamaları kısaca şu şekilde olacaktır.
+
+- Ne kadarlık hakediş yapılmış,
+- Ne kadar malzeme gelmiş
+- Ne kadarlık malzeme hakedişe girmiş
+- Stokta ne kadar malzeme var
+- Taşeronlara ne kadar ödeme yapılmış
+- Taşeronlar aylık kaç adam ile çalışmış
+- Taşeronların yaptığı metraj kaç adam ile sağlanmış. Standart adam saatlere göre düşük mü yüksek mi
+- Projeler kaç kere revize edilmiş
+- Ne kadarlık tutanak eklenmiş
+- Eklenen tutanakların ne kadarı hakedişten alınmış
+- işveren tarafından onaylanmayan tutanaklar hangileri
+- günlük raporlarda ortalama kaç kişi ne kadarlık iş yapılmış
+- günlük raporlarda iş geçikmesine neden olan durumlar ve gecikme gün sayısı
+- aylık rapora göre sözlşeme bitim süresine göre iş yetişiyor mu yetişmiyor mu
+- kaç tane üst yazı yazılmış, kaç tanesine cevap gelmiş
+- siparişlerde verilen malzeme ile irsaliye ile gelen malzemeler uyuşuyor mu
+- siparişler zamanında geliyor mu
+
+vb tüm sorulara cevap girilen verilere göre otomatik oluşturulacaktır.
+
+Şantiyelere eklenen veriler şantiye iş bitiminden sonra tüm veriler arşiv olarak paketlenerek indirilebilecektir.
+Şantiye için eklenen tüm veriler media klasorü altında şantiye adına göre ekleniyor.
+
+
+

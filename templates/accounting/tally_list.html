@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="row">
+    <div class="col-xl-7 col-lg-11 col-md-12">
+        <div class="tab_list">
+            {% for tally in tallies %}
+                <h6 class="tab_title">{{tally.worker}}
+                {% if perms.accounting.change_tally %}
+                <small><a href="{{ tally.get_absolute_url }}" class="btn btn-warning" style="font-size:10px; margin-top:-6px;">Güncelle</a></small>
+                {% endif %}
+                <div class="tab_content">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon3" style="width:150px;">Puantaj</span>
+                        <span class="form-control" id="basic-url" aria-describedby="basic-addon3">{{ tally.notch }}</span>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon3" style="width:150px;">Mesai</span>
+                        <span class="form-control" id="basic-url" aria-describedby="basic-addon3">{{ tally.shift }}</span>
+                    </div>
+                </div>
+                </h6>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

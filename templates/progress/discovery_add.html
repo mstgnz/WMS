@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-xl-9 col-lg-11 col-md-12">
+        <div class="card">
+            <h5 class="card-header"><i class="fab fa-wpforms"></i> {{ title }} Form <a href="javascript:void(0)" class="btn btn-danger del">Çıkar</a> <a href="javascript:void(0)" class="btn btn-danger add">Ekle</a></h5>
+            <div class="card-body">
+                <form method="post" class="contract_form">
+                    {% csrf_token %}
+                    {{ form.worksite }}
+                    <table class="table">
+                        <tr style="border-bottom:solid 1px #ddd;">
+                            <td colspan="1" style="text-align:left; text-indent:5px; background:#ccc; width:10%;">Poz No</td>
+                            <td colspan="1" style="text-align:left; text-indent:5px; background:#ccc; width:41%;">Poz Adı</td>
+                            <td colspan="1" style="text-align:left; text-indent:5px; background:#ccc; width:10%;">Birim</td>
+                            <td colspan="1" style="text-align:left; text-indent:5px; background:#ccc; width:13%;">Miktar</td>
+                            <td colspan="1" style="text-align:left; text-indent:5px; background:#ccc; width:13%;">B.Fiyat</td>
+                            <td colspan="1" style="text-align:left; text-indent:5px; background:#ccc; width:13%;">Tutar</td>
+                        </tr>
+                        <tr class="insert" style="border-bottom:solid 1px #ddd;">
+                            <td class="no" colspan="1"><input type="text" name="no[]" required /></td>
+                            <td class="name" colspan="1"><input type="text" name="name[]" class="name" required /></td>
+                            <td class="unit" colspan="1">
+                                <select name="unit[]" class="unit">
+                                    <option value="MT">MT</option>
+                                    <option value="M2">M2</option>
+                                    <option value="M3">M3</option>
+                                    <option value="AD">AD</option>
+                                    <option value="KG">KG</option>
+                                    <option value="TON">TON</option>
+                                    <option value="SET">SET</option>
+                                    <option value="YEV">YEVMİYE</option>
+                                </select>
+                            </td>
+                            <td class="amount" colspan="1"><input type="number" name="amount[]" min=0 value=0 step="any" required /></td>
+                            <td class="price" colspan="1"><input type="number" name="price[]" readonly min=0 value=0 step="any" required /></td>
+                            <td class="total" colspan="1"><input type="number" name="total[]" readonly min=0 value=0 step="any" required /></td>
+                        </tr>
+                    </table>
+                    <button type="submit" class="btn btn-outline-info button"><i class="fas fa-angle-right"></i> {{ title }} <i class="fas fa-angle-left"></i></button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block css %}
+<style>
+    td{
+        padding: 0px !important;
+        margin: 0px !important;
+    }
+    input{
+        width:100%;
+        text-indent:5px;
+    }
+    input[type="number"]{
+        text-align:right;
+    }
+    select[name="unit[]"]{
+        width:100%;
+        padding: 2px;
+        text-indent:5px;
+        border:solid 1px #aaa;
+    }
+    a.add{
+        font-size: 12px;
+        float: right;
+    }
+    a.del{
+        font-size: 12px;
+        float: right;
+        margin-left: 5px;
+    }
+    .indis input{
+        background:#eee;
+    }
+</style>
+{% endblock %}
+
+{% block js %}
+<script>
+    $('input[type=number]').attr('min',0) // number input minimum değerleri 0 olarak ayarlandı. Eksi değer girilemesin.
+    $('a.add').click(()=>{
+        $('<tr class="append" style="border-bottom:solid 1px #ddd;"><td colspan="1"><input type="text" name="no[]" required /></td><td colspan="1"><input type="text" name="name[]" required /></td><td colspan="1"><select name="unit[]"><option value="MT">MT</option><option value="M2">M2</option><option value="M3">M3</option><option value="AD">AD</option><option value="KG">KG</option><option value="TON">TON</option><option value="SET">SET</option><option value="YEV">YEVMİYE</option></select></td><td colspan="1"><input type="number" name="amount[]" min=0 value=0 step="any" required /></td><td colspan="1"><input type="number" name="price[]" readonly min=0 value=0 step="any" required /></td><td colspan="1"><input type="number" name="total[]" readonly min=0 value=0 step="any" required /></td></tr>').insertBefore($('.insert'))
+    })
+
+    $('a.del').click(()=>{
+        $('.append').last().remove();
+    })
+
+    $("select").change(function(e){
+        $('.indis').remove()
+        const form_serialize = $('.contract_form').serialize();
+        $.ajax({
+            url: '/progress/discovery/add/',
+            method: 'POST',
+            data: form_serialize,
+            type: 'json',
+            success: function(result){
+                result = JSON.parse(result);
+                $.each(result, function(key, value){
+                    $('<tr class="indis" style="border-bottom:solid 1px #ddd;"><td colspan="1"><input type="text" name="no" readonly value="'+value.fields.no+'" /></td><td colspan="1"><input type="text" name="name" readonly value="'+value.fields.name+'" /></td><td colspan="1"><input type="text" name="unit" readonly value="'+value.fields.unit+'" /></td><td colspan="1"><input type="number" name="amount" readonly value="'+value.fields.amount+'" /></td><td colspan="1"><input type="number" name="price" readonly value="'+value.fields.price+'"/></td><td colspan="1"><input type="number" name="total" readonly value="'+value.fields.total+'" /></td></tr>').insertAfter($('.insert'))
+                })
+            }
+        })
+    })
+    
+</script>
+{% endblock %}

@@ -1,0 +1,365 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="col-xl-7 col-lg-11 col-md-12">
+    <form method="post"> {% csrf_token %}
+        <table class="table" style="border:dashed 2px #ccc; background:#fff;">
+            <tr style="border-bottom:solid 1px #ddd;">
+                <td colspan="7" style="text-align:center; background:#eee;"><b>PUANTAJ</b></td>
+            </tr>
+            <tr>
+                <td style="width:30px;"></td>
+                <td colspan="1" style="border-bottom:solid 1px #ddd;"><b>ŞANTİYE</b></td>
+                <td colspan="2" style="border-bottom:solid 1px #ddd;">
+                    <select name="worksite">
+                        <option>---------</option>
+                    {% for worksite in worksites %}
+                    <!-- user.worksite.all ile kullanıcıya atanan şantiyeler listesi gelir fakat şantiye aktif mi değilmi kontrolü yapılmalıdır. -->
+                    <!-- backend tarafında ise bu listeleme self.request.user.worksite.filter(active=True) şeklindedir. -->
+                            <option value="{{ worksite.pk }}">{{ worksite }}</option>
+                    {% endfor %}
+                </select>
+                </td>
+                <td colspan="1" style="border-bottom:solid 1px #ddd;"><small><b>YIL</b></small></td>
+                <td colspan="1" style="border-bottom:solid 1px #ddd;">{{ form.year }}</td>
+                <td style="width:30px;"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td colspan="1" style="border-bottom:solid 1px #ddd;"><b>TAŞERON</b></td>
+                <td colspan="2" style="border-bottom:solid 1px #ddd;"><select name="subcontractor"></select></td>
+                <td colspan="1" style="border-bottom:solid 1px #ddd;"><small><b>AY</b></small></td>
+                <td colspan="1" style="border-bottom:solid 1px #ddd;">{{ form.month }}</td>
+                <td></td>
+            </tr>
+        </table>
+
+    <ul id="tab">
+        <li>ÖZET</li>
+        <li>GÜN</li>
+        <li>MESAİ</li>
+    </ul>
+    <div class="clear"></div>
+
+    <!-- *** PUANTAJ ÖZET *** -->
+
+    <div class="tab_list">
+        <table class="table" style="border:dashed 2px #ccc; background:#fff; margin-bottom:100px;">
+            <tr style="border-bottom:solid 1px #ddd;">
+                <td colspan="7" style="text-align:center; background:#eee;"><b>PUANTAJ ÖZET</b></td>
+            </tr>
+            <tr class="worker">
+                <th></th>
+                <th class="ad_soyad">Adı Soyadı</th>
+                <th>Toplam Yevmiye</th>
+                <th>Toplam Pazar</th>
+                <th>Toplam Mesai</th>
+                <th>Toplam İzin</th>
+                <th></th>
+            </tr>
+            <!-- İŞÇİ LİSTESİ AJAX İLE SAĞLANIYOR. TALLY LOOP -->
+            <tr>
+                <td colspan="7"><button type="submit" class="btn btn-outline-info button"><i class="fas fa-angle-right"></i> PUANTAJ KAYIT <i class="fas fa-angle-left"></i></button></td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- *** PUANTAJ GÜN *** -->
+
+    <div class="tab_list">
+        <table class="table" style="border:dashed 2px #ccc; background:#fff; margin-bottom:100px; font-size:12px;">
+            <tr style="border-bottom:solid 1px #ddd;">
+                <td colspan="32" style="text-align:center; background:#eee; font-size: 15px">
+                    <span><b>PUANTAJ GÜN</b></span>
+                    <small>Tam Gün : <b>T</b> --- Yarım Gün : <b>Y</b> --- İzinli : <b>I</b> --- Pazar : <b>P</b></small>
+                </td>
+            </tr>
+            <tr class="notch">
+                <th class="ad_soyad day_list">Adı Soyadı</th>
+            </tr>
+            <!-- AJAX İLE NOTCH LİSTELENİYOR -->
+        </table>
+    </div>
+
+    <!-- *** PUANTAJ MESAİ *** -->
+
+    <div class="tab_list">
+        <table class="table" style="border:dashed 2px #ccc; background:#fff; margin-bottom:100px; font-size:12px;">
+            <tr style="border-bottom:solid 1px #ddd;">
+                <td colspan="32" style="text-align:center; background:#eee; font-size: 15px"><b>PUANTAJ MESAİ</b></td>
+            </tr>
+            <tr class="shift">
+                <th class="ad_soyad day_list">Adı Soyadı</th>
+            </tr>
+            <!-- AJAX İLE NOTCH DAY LİSTELENİYOR -->
+        </table>
+    </div>
+    </form>
+</div>
+
+{% endblock %}
+
+
+{% block css %}
+<style>
+    tr td{
+        padding:8px;
+    }
+    input{
+        border:none;
+        border-bottom:solid 1px red;
+        width: 100%;
+    }
+    input[name="day[]"]{
+        text-align: center;
+        width: 24px;
+    }
+    input[name="notch[]"]{
+        text-align: center;
+        text-transform: uppercase;
+        width:20px;
+        padding: 2px;
+    }
+    input[name="shift[]"]{
+        text-align: center;
+        width:20px;
+        padding: 2px;
+    }
+    select::-ms-expand{
+        display: none;
+    }
+    select[name="worker[]"]{
+        width: 200px;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+    }
+    input:read-only {
+        border:none;
+    }
+    input[type="number"]{
+        text-align:right;
+    }
+    .tab_list{
+        border:none;
+    }
+    .notch th, .shift th{
+        margin: 0;
+        padding: 0;
+    }
+    .notch_list td, .shift_list td{
+        margin: 0;
+        padding: 0;
+    }
+    input[type=number]::-webkit-inner-spin-button, 
+    input[type=number]::-webkit-outer-spin-button { 
+        -webkit-appearance: none; 
+        margin: 0; 
+    }
+    .ad_soyad{
+        display: block;
+        text-indent: 10px;
+        width:180px;
+    }
+    table tr td span, small{
+        display: block;
+    }
+</style>
+{% endblock %}
+
+
+
+{% block js %}
+<script>
+    // Girilen yıl ve aya göre ayın kaç gün çektiğini dönüyor.
+    const getDaysInMonth = (month,year)=>{
+        return new Date(year, month, 0).getDate();
+    };
+    // ŞANTİYE SEÇİMİ İLE TAŞERONLAR LİSTELENİYOR
+    $('select[name=subcontractor]').empty()
+    $('select[name=subcontractor]').append('<option>---------</option>')
+    $("select[name=worksite]").change(()=>{
+        $('.worker_list').remove()
+        $('.notch_list').remove()
+        $('.shift_list').remove()
+        $('select[name=subcontractor]').empty()
+        $('select[name=subcontractor]').append('<option>---------</option>')
+        $('form').append('<input type="hidden" name="type" value="sub_select" />')
+        let form_serialize = $('form').serialize()
+        $.ajax({
+            url: '/accounting/tally/',
+            method: 'POST',
+            data: form_serialize,
+            type: 'json',
+            success: (result)=>{
+                sub = JSON.parse(result.sub)
+                $.each(sub, function(key, value){
+                    $('select[name=subcontractor]').append('<option value="'+value.pk+'">'+value.fields.name+'</option>');
+                });
+            }
+        })
+    })
+    // TAŞERON SEÇİMİ İLE İŞÇİLER LİSTELENİYOR
+    $("select[name=subcontractor], select[name=year], select[name=month]").change(()=>{
+        // Ay kaç çekiyor buluyoruz
+        getYear = $("select[name='year']").val()
+        getMonth = $("select[name='month']").val()
+        getDay = getDaysInMonth(getMonth, getYear)
+        $('.list_day').remove()
+        $('.list_notch').remove()
+        $('.list_shift').remove()
+        // seçilen yıl ve aya göre günler listeleniyor.
+        let day_list = "";
+        for(let i=0; i<getDay; i++){
+            day_list += '<th class="list_day"><input type="text" value="'+parseInt(i+1)+'" readonly/></th>';
+        }
+        $(`${day_list}`).insertAfter($('.day_list'));
+        $('input[value=sub_select]').remove()
+        $('.worker_list').remove()
+        $('.notch_list').remove()
+        $('.shift_list').remove()
+        form_serialize = $('form').serialize()
+        $.ajax({
+            url: '/accounting/tally/',
+            method: 'POST',
+            data: form_serialize,
+            type: 'json',
+            success: (result)=>{
+                worker = JSON.parse(result.worker)
+                let worker_list = "";
+                $.each(worker, function(key, value){
+                    // PUANTAJ ÖZET
+                    worker_list += `<tr class="worker_list" style="border-bottom:solid 1px #ddd;">
+                        <td></td>
+                        <td><select name="worker[]"><option value="${value.pk}">${value.fields.full_name}</option></select></td>
+                        <td><input type="number" name="wage[]" min="0" value=0 readonly required class="wage_val" /></td>
+                        <td><input type="number" name="sunday[]" min="0" value=0 readonly required class="sunday_val" /></td>
+                        <td><input type="number" name="overtime[]" min="0" value=0 readonly required class="overtime_val" /></td>
+                        <td><input type="number" name="permit[]" min="0" value=0 readonly required class="permit_val" /></td>
+                        <td></td>
+                    </tr>`;
+                })
+                $(worker_list).insertAfter($('.worker'))
+                // Seçilen şantiye, taşeron, yıl ve ay bilgilerine göre işçiler listeleniyor.
+                tallyAjax()
+            }
+        })
+    })
+    // SEÇİLEN YIL VE AYA GÖRE DAHA ÖNCEDEN KAYIT VARSA FORMA İŞLENECEKTİR. BACKEND TARAFINDA UPDATE EDİLECEKTİR.
+    function tallyAjax(){
+        form_serialize = $('form').serialize()
+        $.ajax({
+            url: '/accounting/tally/',
+            method: 'POST',
+            data: form_serialize,
+            type: 'json',
+            success: (result)=>{
+                worker = JSON.parse(result.worker)
+                notchs = JSON.parse(result.tally)
+                let notch_list = shift_list = "";
+                if(notchs.length==0){
+                    $.each(worker, function(key, value){
+                        // PUANTAJ GÜN
+                        notch_list += `<tr class="notch_list"><td><select disabled><option value="${value.pk}">${value.fields.full_name}</option></select></td>`
+                        for(let i=0; i<getDay; i++){
+                            notch_list += '<td class="list_notch"><input type="text" name="notch[]" maxlength=1 onchange="dentChange(this)" /></td>';
+                        }
+                        notch_list += '</tr>';
+                        // PUANTAJ MESAİ
+                        shift_list += `<tr class="shift_list"><td><select disabled><option value="${value.pk}">${value.fields.full_name}</option></select></td>`
+                        for(let i=0; i<getDay; i++){
+                            shift_list += '<td class="list_shift"><input type="number" name="shift[]" min=0 max=9 step=any /></td>';
+                        }
+                        shift_list += '</tr>';
+                    })
+                    $(notch_list).insertAfter($('.notch'))
+                    $(shift_list).insertAfter($('.shift'))
+                }else{
+                    let row = getDay;
+                    for(let x=0; x<worker.length; x++){
+                        notch_list += `<tr class="notch_list"><td><select disabled><option value="${worker[x].fields.pk}">${worker[x].fields.full_name}</option></select></td>`;
+                        shift_list += `<tr class="shift_list"><td><select disabled><option value="${worker[x].fields.pk}">${worker[x].fields.full_name}</option></select></td>`;
+                        if(notchs[x]){
+                            for(let y=0; y<getDay; y++){
+                                notch_list += `<td class="list_notch"><input type="text" name="notch[]" value="${notchs[x].fields.notch.split(',')[y]}" maxlength=1 onchange="dentChange(this)" /></td>`;
+                                shift_list += `<td class="list_shift"><input type="number" name="shift[]" value=${notchs[x].fields.shift.split(',')[y] ? parseFloat(notchs[x].fields.shift.split(',')[y]):0} min=0 max=9 step=any /></td>`;
+                            }
+                        }else{
+                            for(let y=0; y<getDay; y++){
+                                notch_list += `<td class="list_notch"><input type="text" name="notch[]" maxlength=1 onchange="dentChange(this)" /></td>`;
+                                shift_list += `<td class="list_shift"><input type="number" name="shift[]" min=0 max=9 step=any /></td>`;
+                            }
+                        }
+                        notch_list += `</tr>`;
+                        shift_list += `</tr>`;
+                    }
+                    $(notch_list).insertAfter($('.notch'))
+                    $(shift_list).insertAfter($('.shift'))
+                    //wage sunday overtime permit inputları kayıtlı veriden işleniyor        
+                    wage_val = document.getElementsByClassName('wage_val');
+                    sunday_val = document.getElementsByClassName('sunday_val');
+                    overtime_val = document.getElementsByClassName('overtime_val');
+                    permit_val = document.getElementsByClassName('permit_val');
+                    for(x = 0; x<wage_val.length; x++) {
+                        if(notchs[x]){
+                            wage_val[x].value = notchs[x].fields.wage.toFixed(1);
+                            sunday_val[x].value = notchs[x].fields.sunday.toFixed(1);
+                            overtime_val[x].value = notchs[x].fields.overtime.toFixed(1);
+                            permit_val[x].value = notchs[x].fields.permit.toFixed(1);
+                        }
+                    }
+                }
+            }
+        });
+    }
+    // Eğer iizn verilen karakterlerin dışında girilirse arka planı kırmızı yapılacaktır
+    const dent = ['T','Y','I','P'] // Puantaj Çentik
+    function dentChange(e){
+        e.style.background = 'none'
+        if(!dent.includes(e.value.toUpperCase()) && e.value!==''){
+            e.style.background = 'red'
+        }
+    }
+
+    // wage sunday permit overtime alanları hesaplanarak otomatik doldurulacak
+    let day, notch, shift, wage_val, sunday_val, overtime_val, permit_val, getYear, getMonth;
+    let wage_sum = [];
+    let sunday_sum = []; 
+    let permit_sum = [];
+    let overtime_sum = [];
+    $('form').change((e)=>{
+        // Form her yenilendiğinde inputlardaki değerler çekiliyor.
+        let getDay = getDaysInMonth(getMonth, getYear)
+        notch = $("input[name='notch[]']").map(function(){return $(this).val().toUpperCase()}).get();
+        shift = $("input[name='shift[]']").map(function(){return $(this).val()}).get();
+        // İsme karşılık gelen pautajların hesaplanması
+        for(let i=0; i<notch.length/getDay; i++){
+            wage_sum[i] = sunday_sum[i] = permit_sum[i] = overtime_sum[i] = 0;
+        }
+        let key = 0;
+        for(let y=0; y<notch.length; y++){
+            if(notch[y]=='T'){ wage_sum[key] += 1 }
+            if(notch[y]=='Y'){ wage_sum[key] += 0.5 }
+            if(notch[y]=='P'){ sunday_sum[key] += 1 }
+            if(notch[y]=='I'){ permit_sum[key] += 1 }
+            if(shift[y]){overtime_sum[key] += parseFloat(shift[y])}
+            if(y == getDay-1){ 
+                key += 1;
+                getDay *=2;
+            }
+        }
+        //wage sunday overtime permit inputları işleniyor        
+        wage_val = document.getElementsByClassName('wage_val');
+        sunday_val = document.getElementsByClassName('sunday_val');
+        overtime_val = document.getElementsByClassName('overtime_val');
+        permit_val = document.getElementsByClassName('permit_val');
+        for(x = 0; x<wage_val.length; x++) {
+            wage_val[x].value = wage_sum[x].toFixed(1);
+            sunday_val[x].value = sunday_sum[x].toFixed(1);
+            overtime_val[x].value = overtime_sum[x].toFixed(1);
+            permit_val[x].value = permit_sum[x].toFixed(1);
+        }
+    })
+    
+</script>
+{% endblock %}

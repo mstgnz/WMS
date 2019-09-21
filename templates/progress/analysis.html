@@ -1,0 +1,318 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+    <div class="col-xl-8 col-lg-11 col-md-12">
+        <form method="post"> {% csrf_token %}
+            <table class="table" style="border:dashed 2px #ccc; background:#fff; margin-bottom:100px;">
+            <tr><td colspan=6 style="text-align:center; font-size:20px; font-weight:bold; color:brown">{{ request.user.firm.full_name }}</td></tr>
+            <tr>
+                <td style="width:5%"></td>
+                <td style="width:15%"></td>
+                <td style="width:35%"></td>
+                <td style="width:15%"></td>
+                <td style="width:15%"></td>
+                <td style="width:15%"></td>
+            </tr>
+            <tr>
+                <td colspan=2><strong>ŞANTİYE ADI</strong> <small style="display:block;">Worksite Name</small></td>
+                <td colspan=1>{{ worksite }}</td>
+                <td colspan=2><strong>ÖLÇÜ BİRİMİ</strong> <small style="display:block">Dimention Unit</small></td>
+                <td colspan=1>{{ discovery.unit }}</td>
+            </tr>
+             <tr>
+                <td colspan=2><strong>BİRİM FİYAT NO</strong> <small style="display:block">Unit Price No</small></td>
+                <td colspan=1>{{ discovery.no }}</td>
+                <td colspan=2><strong>RAYİÇ YILI</strong></td>
+                <td colspan=1>{{ form.year }}</td>
+            </tr>
+            <tr>
+                <td colspan=2><strong>BİRİM FİYAT ADI</strong> <small style="display:block">Unit Price Name</small></td>
+                <td colspan=4>{{ discovery.name }}</td>
+            </tr>
+            <tr><td colspan=6 style="text-align:center; background:LightSteelBlue"><strong>BİRİM FİYAT TARİFİ</strong> - UNIT PRICE DESCRIPTION</td></tr>
+            <tr><td colspan=6>{{ form.detail }}</td></tr>
+            <tr style="text-align:center; font-weight:bold; background:LightSteelBlue">
+                <td colspan=3>İŞİN CİNSİ <small style="display:block;">Description</small></td>
+                <td colspan=1>Miktar <small style="display:block;">Quantity</small></td>
+                <td colspan=1>Fiyat <small style="display:block;">Unit Rate</small></td>
+                <td colspan=1>Tutar <small style="display:block;">Total</small></td>
+            </tr>
+            <tr style="background:Gainsboro; font-weight:bold;">
+                <td colspan=1>A</td>
+                <td colspan=2>MALZEME - <small>Material</small></td>
+                <td colspan=2>Malzeme Toplam</td>
+                <td colspan=1>{{ form.material }}</td>
+            </tr>
+            <!-- TEKRAR | LOOP -->
+            {% for mat in material %}
+                <tr class="material">
+                    <td colspan=1>{{ forloop.counter }}</td>
+                    <td colspan=2>
+                    <input type="hidden" name="pk[]" value="{{mat.pk}}" />
+                    <input type="hidden" name="category[]" value="material" />
+                    <input type="text" name="definition[]" required placeholder="Malzeme" value="{{mat.definition}}" />
+                    </td>
+                    <td colspan=1><input type="number" step="any" name="amount[]" value="{{mat.amount}}" required /></td>
+                    <td colspan=1><input type="number" step="any" name="price[]" value="{{mat.price}}" required  /></td>
+                    <td colspan=1><input type="number" name="total[]" value="{{mat.total}}" readonly /></td>
+                </tr>
+            {% endfor %}
+            {% if not material %}
+                <tr class="material">
+                    <td colspan=1>1</td>
+                    <td colspan=2>
+                    <input type="hidden" name="pk[]" />
+                    <input type="hidden" name="category[]" value="material" />
+                    <input type="text" name="definition[]" required placeholder="Malzeme" />
+                    </td>
+                    <td colspan=1><input type="number" step="any" name="amount[]" required /></td>
+                    <td colspan=1><input type="number" step="any" name="price[]" required  /></td>
+                    <td colspan=1><input type="number" name="total[]" readonly /></td>
+                </tr>
+            {% endif %}
+            <tr class="insert">
+                <td colspan=1></td>
+                <td colspan=5>
+                    <a href="javascript:void(0)" class="append"><i class="fas fa-plus-square fa-lg"></i></a>
+                    <a href="javascript:void(0)" class="remove"><i class="fas fa-minus-square fa-lg"></i></a>
+                </td>
+            </tr>
+            <!-- TEKRAR | LOOP -->
+            <tr><td colspan=6></td></tr>
+            <tr style="background:Gainsboro; font-weight:bold;">
+                <td colspan=1>B</td>
+                <td colspan=2>İŞÇİLİK ve NAKLİYE - <small>Labor and Shipping</small></td>
+                <td colspan=2>İşçilik Toplam</td>
+                <td colspan=1>{{ form.workmanship }}</td>
+            </tr>
+            <tr class="workmanship">
+                <td colspan=1>1</td>
+                <td colspan=2>
+                <input type="hidden" name="pk[]" value="{{workmanship.0.pk}}" />
+                <input type="hidden" name="category[]" value="workmanship" />
+                <input type="text" name="definition[]" value="İşçilik" readonly />
+                </td>
+                <td colspan=1><input type="number" step="any" name="amount[]" value="{{workmanship.0.amount}}" required /></td>
+                <td colspan=1><input type="number" step="any" name="price[]" value="{{workmanship.0.price}}" required  /></td>
+                <td colspan=1><input type="number" name="total[]" value="{{workmanship.0.total}}" readonly /></td>
+            </tr>
+            <tr class="workmanship">
+                <td colspan=1>2</td>
+                <td colspan=2>
+                <input type="hidden" name="pk[]" value="{{workmanship.1.pk}}" />
+                <input type="hidden" name="category[]" value="workmanship" />
+                <input type="text" name="definition[]" value="Hammaliye" readonly />
+                </td>
+                <td colspan=1><input type="number" step="any" name="amount[]" value="{{workmanship.1.amount}}" required /></td>
+                <td colspan=1><input type="number" step="any" name="price[]" value="{{workmanship.1.price}}" required  /></td>
+                <td colspan=1><input type="number" name="total[]" value="{{workmanship.1.total}}" readonly /></td>
+            </tr>
+            <tr class="workmanship">
+                <td colspan=1>3</td>
+                <td colspan=2>
+                <input type="hidden" name="pk[]" value="{{workmanship.2.pk}}" />
+                <input type="hidden" name="category[]" value="workmanship" />
+                <input type="text" name="definition[]" value="Nakliye" readonly />
+                </td>
+                <td colspan=1><input type="number" step="any" name="amount[]" value="{{workmanship.2.amount}}" required /></td>
+                <td colspan=1><input type="number" step="any" name="price[]" value="{{workmanship.2.price}}" required  /></td>
+                <td colspan=1><input type="number" name="total[]" value="{{workmanship.2.total}}" readonly /></td>
+            </tr>
+            <tr class="workmanship">
+                <td colspan=1>4</td>
+                <td colspan=2>
+                <input type="hidden" name="pk[]" value="{{workmanship.3.pk}}" />
+                <input type="hidden" name="category[]" value="workmanship" />
+                <input type="text" name="definition[]" value="İskele" readonly />
+                </td>
+                <td colspan=1><input type="number" step="any" name="amount[]" value="{{workmanship.3.amount}}" required /></td>
+                <td colspan=1><input type="number" step="any" name="price[]" value="{{workmanship.3.price}}" required  /></td>
+                <td colspan=1><input type="number" name="total[]" value="{{workmanship.3.total}}" readonly /></td>
+            </tr>
+            <tr><td colspan=6></td></tr>
+            <tr style="background:Gainsboro; font-weight:bold;">
+                <td colspan=1>C</td>
+                <td colspan=2>GENEL GİDER - <small>Overheads</small></td>
+                <td colspan=2>Genel Gider Toplam</td>
+                <td colspan=1>{{ form.overheads }}</td>
+            </tr>
+            <tr class="overheads">
+                <td colspan=1>1</td>
+                <td colspan=2>
+                <input type="hidden" name="pk[]" value="{{overheads.0.pk}}" />
+                <input type="hidden" name="category[]" value="overheads" />
+                <input type="text" name="definition[]" value="İşçi Sgk Gideri" readonly />
+                </td>
+                <td colspan=1><input type="number" step="any" name="amount[]" value="{{overheads.0.amount}}" required /></td>
+                <td colspan=1><input type="number" step="any" name="price[]" value="{{overheads.0.price}}" required  /></td>
+                <td colspan=1><input type="number" name="total[]" value="{{overheads.0.total}}" readonly /></td>
+            </tr>
+            <tr class="overheads">
+                <td colspan=1>2</td>
+                <td colspan=2>
+                <input type="hidden" name="pk[]" value="{{overheads.1.pk}}" />
+                <input type="hidden" name="category[]" value="overheads" />
+                <input type="text" name="definition[]" value="İşçi İsg Gideri" readonly />
+                </td>
+                <td colspan=1><input type="number" step="any" name="amount[]" value="{{overheads.1.amount}}" required /></td>
+                <td colspan=1><input type="number" step="any" name="price[]" value="{{overheads.1.price}}" required  /></td>
+                <td colspan=1><input type="number" name="total[]" value="{{overheads.1.total}}" readonly /></td>
+            </tr>
+            <tr class="overheads">
+                <td colspan=1>3</td>
+                <td colspan=2>
+                <input type="hidden" name="pk[]" value="{{overheads.2.pk}}" />
+                <input type="hidden" name="category[]" value="overheads" />
+                <input type="text" name="definition[]" value="İşçi Konaklama Gideri" readonly />
+                </td>
+                <td colspan=1><input type="number" step="any" name="amount[]" value="{{overheads.2.amount}}" required /></td>
+                <td colspan=1><input type="number" step="any" name="price[]" value="{{overheads.2.price}}" required  /></td>
+                <td colspan=1><input type="number" name="total[]" value="{{overheads.2.total}}" readonly /></td>
+            </tr>
+            <tr class="overheads">
+                <td colspan=1>4</td>
+                <td colspan=2>
+                <input type="hidden" name="pk[]" value="{{overheads.3.pk}}" />
+                <input type="hidden" name="category[]" value="overheads" />
+                <input type="text" name="definition[]" value="İşçi Yemek Gideri" readonly />
+                </td>
+                <td colspan=1><input type="number" step="any" name="amount[]" value="{{overheads.3.amount}}" required /></td>
+                <td colspan=1><input type="number" step="any" name="price[]" value="{{overheads.3.price}}" required  /></td>
+                <td colspan=1><input type="number" name="total[]" value="{{overheads.3.total}}" readonly /></td>
+            </tr>
+            <tr class="overheads">
+                <td colspan=1>5</td>
+                <td colspan=2>
+                <input type="hidden" name="pk[]" value="{{overheads.4.pk}}" />
+                <input type="hidden" name="category[]" value="overheads" />
+                <input type="text" name="definition[]" value="Proje Genel Gideri" readonly />
+                </td>
+                <td colspan=1><input type="number" step="any" name="amount[]" value="{{overheads.4.amount}}" required /></td>
+                <td colspan=1><input type="number" step="any" name="price[]" value="{{overheads.4.price}}" required  /></td>
+                <td colspan=1><input type="number" name="total[]" value="{{overheads.4.total}}" readonly /></td>
+            </tr>
+            <tr><td colspan=6></td></tr>
+            <tr style="background:Gainsboro; font-weight:bold;">
+                <td colspan=1>D</td>
+                <td colspan=2>MÜTEAHHİTLİK KÂRI - <small>Contracting Profit</small></td>
+                <td colspan=2></td>
+                <td colspan=1>{{ form.profit }}</td>
+            </tr>
+            <tr><td colspan=6></td></tr>
+            <tr style="background:Gainsboro; font-weight:bold;">
+                <td colspan=1>E</td>
+                <td colspan=4>TEKLİF FİYATI - <small>Offer Price</small></td>
+                <td colspan=1>{{ form.tender }}</td>
+            </tr>
+            <tr><td colspan=6>{{ form.note }}</td></tr>
+            <tr><td colspan=6><button type="submit" class="btn btn-outline-info button"><i class="fas fa-angle-right"></i> Analizi Kaydet <i class="fas fa-angle-left"></i></button></td></tr>
+        </table>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+<script>
+    $('input[type=number]').attr('min',0) // number input minimum değerleri 0 olarak ayarlandı. Eksi değer girilemesin.
+    // APPEND MATERIAL
+    $('a.append').click(()=>{
+        const row = $(".material").length+1
+        $('<tr class="material append"><td colspan=1>'+row+'</td><td colspan=2><input type="hidden" name="pk[]" /><input type="hidden" name="category[]" value="material" /><input type="text" name="definition[]" required placeholder="Malzeme" /></td><td colspan=1><input type="number" step="any" name="amount[]" min=0 value=0 required /></td><td colspan=1><input type="number" step="any" name="price[]" min=0 value=0 required  /></td><td colspan=1><input type="number" name="total[]" readonly /></td></tr>').insertBefore($('.insert'))
+    })
+
+    $('a.remove').click(()=>{
+        $('.material.append').last().remove();
+    })
+
+    // INSTANCE FORM CHECK FOR NUMBER FIELD
+    type_number = $("input[type='number']").serializeArray()
+    $('input[type="number"]').each(function(k,v){
+        if(!type_number[k].value){
+            $(this).val(1)
+        }
+    })
+    // AUTO SUM TOTAL FORM
+    $('form').change(()=>{
+        // Material
+        material_mount = $(".material input[name='amount[]']").serializeArray()
+        material_price = $(".material input[name='price[]']").serializeArray()
+        material_total_sum = 0
+        $('.material input[name="total[]"]').each(function(k,v){
+            $(this).val((parseFloat(material_mount[k].value).toFixed(2)*parseFloat(material_price[k].value).toFixed(2)).toFixed(2))
+            material_total_sum+=parseFloat((parseFloat(material_mount[k].value).toFixed(2)*parseFloat(material_price[k].value).toFixed(2)).toFixed(2))
+        })
+        $("input[name='material']").val(material_total_sum.toFixed(2))
+        // Workmanship
+        workmanship_mount = $(".workmanship input[name='amount[]']").serializeArray()
+        workmanship_price = $(".workmanship input[name='price[]']").serializeArray()
+        workmanship_total_sum = 0
+        $('.workmanship input[name="total[]"]').each(function(k,v){
+            $(this).val((parseFloat(workmanship_mount[k].value).toFixed(2)*parseFloat(workmanship_price[k].value).toFixed(2)).toFixed(2))
+            workmanship_total_sum+=parseFloat((parseFloat(workmanship_mount[k].value).toFixed(2)*parseFloat(workmanship_price[k].value).toFixed(2)).toFixed(2))
+        })
+        $("input[name='workmanship']").val(workmanship_total_sum.toFixed(2))
+        // Workmanship
+        overheads_mount = $(".overheads input[name='amount[]']").serializeArray()
+        overheads_price = $(".overheads input[name='price[]']").serializeArray()
+        overheads_total_sum = 0
+        $('.overheads input[name="total[]"]').each(function(k,v){
+            $(this).val((parseFloat(overheads_mount[k].value).toFixed(2)*parseFloat(overheads_price[k].value).toFixed(2)).toFixed(2))
+            overheads_total_sum+=parseFloat((parseFloat(overheads_mount[k].value).toFixed(2)*parseFloat(overheads_price[k].value).toFixed(2)).toFixed(2))
+        })
+        $("input[name='overheads']").val(overheads_total_sum.toFixed(2))        
+        // Tender
+        $('input[name="tender"]').val((
+            parseFloat($('input[name=material]').val()) +
+            parseFloat($('input[name=workmanship]').val()) +
+            parseFloat($('input[name=overheads]').val()) +
+            parseFloat($('input[name=profit]').val())
+        ).toFixed(2))
+    })
+
+
+    
+
+    
+</script>
+{% endblock %}
+
+{% block css %}
+<style>
+    td{
+        padding: 5px !important;
+        margin: 0px !important;
+        text-indent:5px;
+    }
+    small{
+        color:CornflowerBlue;
+    }
+    input{
+        border:none;
+        border-bottom:solid 1px red;
+        width: 90%;
+        text-indent:5px;
+    }
+    input[type="number"]{
+        text-align:right;
+    }
+    input:read-only {
+        border:none;
+    }
+    textarea{
+        width:99%;
+        height:50px;
+        resize:none;
+        font-size:11px;
+        border:none;
+    }
+    .btn-outline-info{
+        width:99%;
+    }
+    input[name="material"],input[name="workmanship"],input[name="overheads"],input[name="tender"]{
+        background:Gainsboro;
+    }
+</style>
+{% endblock %}
+

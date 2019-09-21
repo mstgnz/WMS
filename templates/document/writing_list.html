@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="row">
+    <div class="col-xl-8 col-lg-11 col-md-12">
+        <div class="card">
+            <h5 class="card-header"><i class="fab fa-wpforms"></i> {{ title }} Liste </h5>
+            <div class="card-body">
+                <div class="tab_list" style="background:#eee;">
+                    <form method="post" class="writing">
+                        {% csrf_token %}
+                        <select name="worksite" style="height: 40px;">
+                                <option>---------</option>
+                            {% for worksite in worksites %}
+                                    <option value="{{ worksite.pk }}">{{ worksite }}</option>
+                            {% endfor %}
+                        </select>
+                    </form>
+                    <!-- AJAX İLE YÜKLENİYOR -->
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+
+{% block js %}
+<script>
+
+    // AJAX
+    $("select[name=worksite]").change(()=>{
+        let form_serialize = $('form').serialize()
+        let writing = "";
+        $('.tab_title').remove()
+        $.ajax({
+            url: '/document/writing/list/',
+            method: 'POST',
+            data: form_serialize,
+            type: 'json',
+            success: (result)=>{
+                result = JSON.parse(result)
+                for(let x=0; x<result.length; x++){
+                    writing += `<h6 class="tab_title" style="border-bottom:solid 1px #ccc;"> ${result[x].fields.subject}`;
+                        if("{{perms.firm.change_contract}}"){
+                            writing +=  `<small><a href="${result[x].pk}/update/" class="btn btn-warning" style="font-size:10px; margin-top:-5px">Güncelle</a></small>`;
+                        }
+                        writing +=`<div class="tab_content">
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon3" style="width:150px;">Üst Yazı No</span>
+                                <span class="form-control" id="basic-url" aria-describedby="basic-addon3">${result[x].fields.no}</span>
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon3" style="width:150px;">Üst Yazı Tarihi</span>
+                                <span class="form-control" id="basic-url" aria-describedby="basic-addon3">${result[x].fields.date}</span>
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon3" style="width:150px;">Üst Yazı Dosyası</span>
+                                <span class="form-control" id="basic-url" aria-describedby="basic-addon3">${result[x].fields.file}</span>
+                            </div>
+                        </div>
+                    </h6>`;
+                }
+                $(writing).insertAfter($('.writing'))
+                // Akordion menu
+                $(".tab_title:first").addClass("active");
+                $(".tab_list:not(:first)").hide();
+                $(".tab_content").hide();
+                $(".tab_title").click(function(){
+                    $(".tab_title").removeClass("active");
+                    $(this).addClass("active");
+                    $(".tab_content").slideUp();
+                    $(this).find(".tab_content").stop().slideToggle();
+                });
+            }
+        })
+    })
+
+    
+</script>
+{% endblock %}

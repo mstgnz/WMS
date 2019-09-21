@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="row">
+    <div class="col-xl-7 col-lg-11 col-md-12">
+        <div class="card">
+            <h5 class="card-header">Firm Profile</h5>
+            <div class="card-body">
+                <div class="media">
+                    <div class="media-left w-25 mr-3 d-none d-lg-block">
+                        <img src="{{ user.firm.get_image_or_default }}" class="img-rounded" alt="user-image" style="width:100%" />
+                    </div>
+                    <div class="media-body">
+                        <ul class="list-group">
+                            <li class="list-group-item p-1"><i class="fas fa-caret-right fa-lg"></i> {{ user.firm }}</li>
+                            <li class="list-group-item p-1"><i class="fas fa-caret-right fa-lg"></i> {{ user.firm.full_name }}</li>
+                            <li class="list-group-item p-1"><i class="fas fa-caret-right fa-lg"></i> {{ user.firm.email }}</li>
+                            <li class="list-group-item p-1"><i class="fas fa-caret-right fa-lg"></i> {{ user.firm.web }}</li>
+                            <li class="list-group-item p-1"><i class="fas fa-caret-right fa-lg"></i> {{ user.firm.phone }}</li>
+                            <li class="list-group-item p-1"><i class="fas fa-caret-right fa-lg"></i> {{ user.firm.fax }}</li>
+                            <li class="list-group-item p-1"><i class="fas fa-caret-right fa-lg"></i> {{ user.firm.address }}</li>
+                        </ul>
+                        {% if perms.firm.change_firm %}
+                        <a href="{% url 'firm:firm_update' user.firm.slug %}" class="btn btn-info mt-2">Firm Update</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

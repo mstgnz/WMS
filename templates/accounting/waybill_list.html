@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-xl-8 col-lg-11 col-md-12">
+        <div class="card">
+            <h5 class="card-header"><i class="fab fa-wpforms"></i> {{ title }} Form </h5>
+            <div class="card-body">
+                <form method="post" class="waybill_form">
+                    {% csrf_token %}
+                    {{ form.worksite }}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block css %}
+<style>
+    td{
+        padding: 0px !important;
+        margin: 0px !important;
+    }
+    input{
+        width:100%;
+        text-indent:5px;
+    }
+    select{
+        width:100%;
+        padding: 2px;
+        text-indent:5px;
+        border:solid 1px #aaa;
+        margin-bottom:1px;
+    }
+    a.detay{
+        display:block;
+        padding:3px;
+        background-color:CornflowerBlue;
+        font-weight:bold;
+        color:#fff;
+        text-align:center;
+    }
+</style>
+{% endblock %}
+
+{% block js %}
+<script>
+
+    $("select[name=worksite]").change(function(e){
+        $('.indis').remove()
+        const form_serialize = $('.waybill_form').serialize();
+        if($("select[name=worksite]").val()){
+            $.ajax({
+                url: '/accounting/waybill/list/',
+                method: 'POST',
+                data: form_serialize,
+                type: 'json',
+                success: function(result){
+                    waybill = JSON.parse(result)
+                    //unique = [...new Set(waybill.map(x=>x.fields.vendor))] benzersiz veri
+                    $.each(waybill, function(key, value){
+                        $('<table class="table indis"><tr style="border-bottom:solid 1px #ddd;"><td colspan="1" style="width:20%"></td><td colspan="1" style="width:30%"></td><td colspan="1" style="width:20%"></td><td colspan="1" style="width:30%"></td></tr><tr style="border-bottom:solid 1px #ddd;"><td colspan="1" style="text-align:left; text-indent:5px; background:#ccc;">Satıcı Firma</td><td colspan="3"><input type="text" value="'+value.fields.vendor+'" readonly></td></tr><tr style="border-bottom:solid 1px #ddd;"><td colspan="1" style="text-align:left; text-indent:5px; background:#ccc;">Düzenleme Tarihi</td><td colspan="1"><input type="text" value="'+value.fields.date_of_issue+'" readonly></td><td colspan="1" style="text-align:left; text-indent:5px; background:#ccc;">Fiili Sevk Tarihi</td><td colspan="1"><input type="text" value="'+value.fields.date_of_shipment+'" readonly></td></tr><tr style="border-bottom:solid 1px #ddd;"><td colspan="1" style="text-align:left; text-indent:5px; background:#ccc;">İrsaliye No</td><td colspan="1"><input type="text" value="'+value.fields.waybill_no+'" readonly></td><td colspan="1" style="text-align:left; text-indent:5px; background:#ccc;">Fatura No</td><td colspan="1"><input type="text" value="'+value.fields.invoice_no+'" readonly></td></tr><tr style="border-bottom:solid 1px #ddd;"><td colspan="1" style="text-align:left; text-indent:5px; background:#ccc;">Teslim Alan</td><td colspan="1"><input type="text" value="'+value.fields.recipient+'" readonly></td><td colspan="1" style="text-align:left; text-indent:5px; background:#ccc;">Teslim Eden</td><td colspan="1"><input type="text" value="'+value.fields.consigner+'" readonly></td></tr><tr style="border-bottom:solid 1px #ddd;"><td colspan="1" style="text-align:left; text-indent:5px; background:#ccc;">Notlar</td><td colspan="3"><input type="text" value="'+value.fields.note+'" readonly></td></tr><tr><td colspan="4"><a href="'+value.pk+'" class="detay">İrsaliye Detay</a></td></tr></table>').insertAfter($('select[name="worksite"]'))
+                    })
+                }
+            })
+        }
+    })
+    
+</script>
+{% endblock %}

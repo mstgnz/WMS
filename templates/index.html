@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block lobby %}
+
+<div class="row">
+    <div class="col-md-5 mx-auto">
+        {% include 'messages.html' %}
+        <h3>WELCOME - <small>Worksite Management System</small></h3>
+        <hr/>
+        <a href="{% url 'user:login' %}">Login</a> or <a href="{% url 'user:password_reset' %}">Forgot Password?</a>
+        <hr/>
+        <h4> Şantiye Yönetim Sistemi </h4>
+        <p>
+            Eğer inşaat sektörü içersindeyseniz, şantiyelerle ilgili sorunları adınız gibi ezbere biliyorsunuz demektir. Bir firmanın birden fazla şantiyesi vardır. Her şantiye ile ilgili verilerin takibi saha ekipleri tarafından yapılarak merkeze sunulur ancak veriler hiç bir zaman düzgün işlenemez ve önü kesilemeyen bir girdaba girmiş olursunuz.
+        </p>
+        <p>
+            Şantiyeleriniz ile ilgili bilgileri her bir departmanda çalışan iş arkadaşlarınıza sorarak tek tek öğrenmeniz ve bu verileri işleyerek istediğiniz bilgiye ulaşmanız gerekmektedir. Bu işlemi her ay ve her şantiye için tekrar tekrar yapmanız gerekiyor ki şantiyelerinizin durumunu analiz edebilesiniz.
+        </p>
+        <p>
+            <u>Şantiye takip sistemi tam da bu noktada imdadınıza yetişmektedir.</u>
+        </p>
+        <p>
+            Şantiye takip sistemi ile şantiyenizde kaç tane taşeron firma olduğunu, her bir taşeronun kaç işçi ile çalıştığını, bu işçilerin puantaj bilgilerini, günlük kaç kişi ile ne kadarlık imalat yapıldığını, şantiyeye gelen irsaliyelere göre ne kadar malzeme geldiğini, gelen malzemelerin ne kadarının hakedişe girdiğini, stoktaki malzeme miktarlarını, kaç tane tutanak tutulduğunu ve bedellerini, hakedişe ne kadarlık kısmın girdiğini ve hangi tutanakların işveren tarafından iptal edildiğini, şantiyenin aylık maliyetlerini ve daha bir çok verileri ve raporları takip etme şansınız var.
+        </p>
+        <p>
+            Siz de tüm bu verileri tek bir sistem üzerinden takip etmek ve işlerinizi hızlandırmak istiyorsanız ama kararsızsanız <b><a href="#">demo</a></b> olarak sitemi kullanabilir ve ihtiyaçlarınıza karşılık verip vermeyeceğini inceleyebilirsiniz.
+        </p>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block css %}
+<style>
+    p{
+        text-align: justify;
+        text-justify: inter-word;
+    }
+</style>
+{% endblock %}

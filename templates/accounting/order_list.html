@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-xl-8 col-lg-11 col-md-12">
+        <div class="card">
+            <h5 class="card-header"><i class="fab fa-wpforms"></i> {{ title }} Form </h5>
+            <div class="card-body">
+                <form method="post" class="waybill_form">
+                    {% csrf_token %}
+                    {{ form.worksite }}
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block css %}
+<style>
+    td{
+        padding: 0px !important;
+        margin: 0px !important;
+    }
+    input{
+        width:100%;
+        text-indent:5px;
+    }
+    select{
+        width:100%;
+        padding: 2px;
+        text-indent:5px;
+        border:solid 1px #aaa;
+        margin-bottom:1px;
+    }
+    a.detay{
+        display:block;
+        padding:3px;
+        background-color:CornflowerBlue;
+        font-weight:bold;
+        color:#fff;
+        text-align:center;
+    }
+</style>
+{% endblock %}
+
+{% block js %}
+<script>
+
+    $("select[name=worksite]").change(function(e){
+        $('.table').remove() // Şantiye seçimi değiştiğinde form sıfırlanıyor.
+        const form_serialize = $('.waybill_form').serialize();
+        if($("select[name=worksite]").val()){
+            $.ajax({
+                url: '/accounting/order/list/',
+                method: 'POST',
+                data: form_serialize,
+                type: 'json',
+                success: function(result){
+                    order = JSON.parse(result)
+                    $.each(order, function(key, value){
+                        $(`
+                        <table class="table">
+                            <tr style="border-bottom:solid 1px #ddd;">
+                                <td colspan="1" style="width:20%"></td>
+                                <td colspan="1" style="width:30%"></td>
+                                <td colspan="1" style="width:20%"></td>
+                                <td colspan="1" style="width:30%"></td>
+                            </tr>
+                            <tr style="border-bottom:solid 1px #ddd;">
+                                <td colspan="1" style="text-align:left; text-indent:5px; background:#ccc;">Sipariş Veren</td>
+                                <td colspan="1"><input type="text" value="${value.fields.orderer}" readonly></td>
+                                <td colspan="1" style="text-align:left; text-indent:5px; background:#ccc;">Termin Tarihi</td>
+                                <td colspan="1"><input type="text" value="${value.fields.deadline}" readonly></td>
+                            </tr>
+                            <tr style="border-bottom:solid 1px #ddd;">
+                                <td colspan="1" style="text-align:left; text-indent:5px; background:#ccc;">Notlar</td>
+                                <td colspan="3"><input type="text" value="${value.fields.note}" readonly></td>
+                            </tr>
+                            <tr><td colspan="4"><a href="${value.pk}" class="detay">Sipariş Detay</a></td></tr>
+                        </table>
+                        `).insertAfter($('select[name="worksite"]'))
+                    })
+                }
+            })
+        }
+    })
+    
+</script>
+{% endblock %}

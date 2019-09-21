@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="row">
+    <div class="col-xl-7 col-lg-11 col-md-12">
+        <ul id="tab">
+            <li>Aktif Kullanıcılar</li>
+            <li>Deaktif Kullanıcılar</li>
+        </ul>
+        <div class="clear"></div>
+        <div class="tab_list">
+            {% for active in staff %}
+            {% if active.is_active %}
+
+            <h6 class="tab_title"><img src="{{ active.get_image_or_default }}" alt="image" class="rounded-circle w-5 h-5 mr-2" /> {{active.get_full_name}}
+            {% if perms.user.change_user %}
+            <small><a href="{% url 'user:staff_update' active.pk %}" class="btn btn-warning" style="font-size:12px;">Güncelle</a></small>
+            {% endif %}
+            <div class="tab_content">
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon3" style="width:150px;">Şantiye</span>
+                    <span class="form-control" id="basic-url" aria-describedby="basic-addon3">{{ active.worksite.all|join:", " }}</span>
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon3" style="width:150px;">Email</span>
+                    <span class="form-control" id="basic-url" aria-describedby="basic-addon3">{{ active.email }}</span>
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon3" style="width:150px;">Phone</span>
+                    <span class="form-control" id="basic-url" aria-describedby="basic-addon3">{{ active.phone }}</span>
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon3" style="width:150px;">Address</span>
+                    <span class="form-control" id="basic-url" aria-describedby="basic-addon3">{{ active.address }}</span>
+                </div>
+            </div>
+            </h6>
+            {% endif %}
+            {% endfor %}
+        </div>
+        <div class="tab_list">
+            {% for deactive in staff %}
+            {% if not deactive.is_active %}
+
+            <h6 class="tab_title"><img src="{{ deactive.get_image_or_default }}" alt="image" class="rounded-circle w-5 h-5 mr-2" /> {{ deactive.get_full_name }}
+            {% if perms.user.change_user %}
+            <small><a href="{% url 'user:staff_update' deactive.pk %}" class="btn btn-warning" style="font-size:12px;">Güncelle</a></small>
+            {% endif %}
+            <div class="tab_content">
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon3" style="width:150px;">Şantiye</span>
+                    <span class="form-control" id="basic-url" aria-describedby="basic-addon3">{{ deactive.worksite.all|join:", " }}</span>
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon3" style="width:150px;">Email</span>
+                    <span class="form-control" id="basic-url" aria-describedby="basic-addon3">{{ deactive.email }}</span>
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon3" style="width:150px;">Phone</span>
+                    <span class="form-control" id="basic-url" aria-describedby="basic-addon3">{{ deactive.phone }}</span>
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon3" style="width:150px;">Address</span>
+                    <span class="form-control" id="basic-url" aria-describedby="basic-addon3">{{ deactive.address }}</span>
+                </div>
+            </div>
+            </h6>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

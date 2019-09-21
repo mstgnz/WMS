@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="row">
+    <div class="col-xl-7 col-lg-11 col-md-12">
+        <div class="card">
+            <h5 class="card-header"><i class="fab fa-wpforms"></i> {{ title }} Form</h5>
+            <div class="card-body">
+                <form method="post" class="form" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <div class="input-group" style="margin-bottom:1px">
+                            <span class="input-group-addon d-none d-lg-block" id="basic-addon3" style="width:200px; text-align:left; padding:0px;">{{ field.label_tag }} <i class="fas fa-caret-left fa-lg"></i></span>
+                            <span class="form-control" id="basic-url" aria-describedby="basic-addon3" style="padding:2px;">
+                                {% if form.image == field %}
+                                <div class="customfile">
+                                    {{ field }}
+                                    <small class="help_text">{{ field.help_text }}</small>
+                                </div>
+                                {% else %}
+                                    {{ field }}
+                                    <small class="help_text">{{ field.help_text }}</small>
+                                {% endif %}
+                            </span>
+                        </div>
+                    {% endfor %}
+                    <button type="submit" class="btn btn-outline-info button"><i class="fas fa-angle-right"></i> {{ title }} <i class="fas fa-angle-left"></i></button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+<script>
+
+    // AJAX
+    $('input[name=no]').attr('readonly',true)
+    $("select[name=worksite]").change(function(e){
+        $('form').append('<input type="hidden" name="type" value="minutes" />')
+        const form_serialize = $('form').serialize()
+        $.ajax({
+            url: '/document/ajax/',
+            method: 'POST',
+            data: form_serialize,
+            type: 'json',
+            success: function(result){
+                minutes = JSON.parse(result.minutes)
+                no = minutes.length==1 ? minutes[0]['fields']['no']+1 : 1
+                $('input[name=no]').val(no)
+            }
+        })
+    })
+
+    // FORM
+    $('input[name=total_cost]').attr('readonly',true)
+    $('form').change(()=>{
+        $('input[name=total_cost]').val((
+            parseFloat($('input[name=labor_cost]').val()) +
+            parseFloat($('input[name=material_cost]').val())
+        ).toFixed(2))
+    })
+
+
+</script>
+{% endblock %}

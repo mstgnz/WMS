@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="row">
+    <div class="col-xl-7 col-lg-11 col-md-12">
+        <div class="tab_list">
+            <form method="post">
+                {% csrf_token %}
+                
+                <select name="worksite">
+                        <option>---------</option>
+                    {% for worksite in worksites %}
+                    <!-- user.worksite.all ile kullanıcıya atanan şantiyeler listesi gelir fakat şantiye aktif mi değilmi kontrolü yapılmalıdır. -->
+                    <!-- backend tarafında ise bu listeleme self.request.user.worksite.filter(active=True) şeklindedir. -->
+                            <option value="{{ worksite.pk }}">{{ worksite }}</option>
+                    {% endfor %}
+                </select>
+                <select name="subcontractor"></select>
+                
+                <table class="table">
+                    <tr class="title">
+                       <th style="width:50%">Adı Soyadı</th>
+                       <th style="width:25%">Görevi</th>
+                       <th style="width:25%">Telefon</th>
+                    </tr>                 
+                </table>
+            </form>
+        </div>
+        
+    </div>
+</div>
+
+
+{% endblock %}
+
+{% block js %}
+<script>
+
+    // AJAX
+    $('select[name=subcontractor]').empty()
+    $('select[name=subcontractor]').append('<option>---------</option>')
+    $("select[name=worksite]").change(()=>{
+        $('select[name=subcontractor]').empty()
+        $('select[name=subcontractor]').append('<option>---------</option>')
+        $('form').append('<input type="hidden" name="type" value="sub_select" />')
+        let form_serialize = $('form').serialize()
+        $.ajax({
+            url: '/accounting/worker/list/',
+            method: 'POST',
+            data: form_serialize,
+            type: 'json',
+            success: (result)=>{
+                sub = JSON.parse(result.sub)
+                $.each(sub, function(key, value){
+                    $('select[name=subcontractor]').append('<option value="'+value.pk+'">'+value.fields.name+'</option>');
+                });
+            }
+        })
+    })
+    $("select[name=subcontractor]").change(()=>{
+        $('input[value=sub_select]').remove()
+        form_serialize = $('form').serialize()
+        $.ajax({
+            url: '/accounting/worker/list/',
+            method: 'POST',
+            data: form_serialize,
+            type: 'json',
+            success: (result)=>{
+                $('tr.content').remove()
+                worker = JSON.parse(result.worker)
+                $.each(worker, function(key, value){
+                    $('<tr class="content"><td><a href="/accounting/worker/update/'+value.pk+'">'+value.fields.full_name+'</a></td><td>'+value.fields.title+'</td><td>'+value.fields.phone+'</td></tr>').insertAfter($('tr.title'));
+                });
+            }
+        })
+    })
+
+
+</script>
+{% endblock %}

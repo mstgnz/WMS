@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="row">
+    <div class="col-xl-7 col-lg-11 col-md-12">
+        <ul id="tab">
+            <li>Aktif Şantiyeler</li>
+            <li>Deaktif Şantiyeler</li>
+        </ul>
+        <div class="clear"></div>
+        <div class="tab_list">
+            {% for active in worksites %}
+            {% if active.active %}
+
+            <h6 class="tab_title"><img src="{{ active.get_image_or_default }}" alt="image" class="rounded-circle w-5 h-5 mr-2" /> {{active.name}}
+            {% if perms.firm.change_worksite %}
+            <small><a href="{{ active.get_absolute_url }}" class="btn btn-warning" style="font-size:12px;">Güncelle</a></small>
+            {% endif %}
+            <div class="tab_content">
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon3" style="width:150px;">İş Veren</span>
+                    <span class="form-control" id="basic-url" aria-describedby="basic-addon3">{{ active.employer }}</span>
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon3" style="width:150px;">İşin Adı</span>
+                    <span class="form-control" id="basic-url" aria-describedby="basic-addon3">{{ active.name_of_job }}</span>
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon3" style="width:150px;">Kontrol</span>
+                    <span class="form-control" id="basic-url" aria-describedby="basic-addon3">{{ active.control }}</span>
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon3" style="width:150px;">İnşaat Alanı</span>
+                    <span class="form-control" id="basic-url" aria-describedby="basic-addon3">{{ active.construction_area }}</span>
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon3" style="width:150px;">Pafta No</span>
+                    <span class="form-control" id="basic-url" aria-describedby="basic-addon3">{{ active.threader_no }}</span>
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon3" style="width:150px;">Ada No</span>
+                    <span class="form-control" id="basic-url" aria-describedby="basic-addon3">{{ active.island_no }}</span>
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon3" style="width:150px;">Parsel No</span>
+                    <span class="form-control" id="basic-url" aria-describedby="basic-addon3">{{ active.parcel_no }}</span>
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon3" style="width:150px;">Telefon</span>
+                    <span class="form-control" id="basic-url" aria-describedby="basic-addon3">{{ active.phone }}</span>
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon3" style="width:150px;">Fax</span>
+                    <span class="form-control" id="basic-url" aria-describedby="basic-addon3">{{ active.fax }}</span>
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon3" style="width:150px;">Adres</span>
+                    <span class="form-control" id="basic-url" aria-describedby="basic-addon3">{{ active.address }}</span>
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon3" style="width:150px;">Başlangıç Tarihi</span>
+                    <span class="form-control" id="basic-url" aria-describedby="basic-addon3">{{ active.start_date }}</span>
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon3" style="width:150px;">Bitiş Tarihi</span>
+                    <span class="form-control" id="basic-url" aria-describedby="basic-addon3">{{ active.end_date }}</span>
+                </div>
+            </div>
+            </h6>
+            {% endif %}
+            {% endfor %}
+        </div>
+        <div class="tab_list">
+            {% for deactive in worksites %}
+            {% if not deactive.active %}
+
+            <h6 class="tab_title"><img src="{{ deactive.get_image_or_default }}" alt="image" class="rounded-circle w-5 h-5 mr-2" /> {{ deactive.name }}
+            {% if perms.firm.change_worksite %}
+            <small><a href="{{ deactive.get_absolute_url }}" class="btn btn-warning" style="font-size:12px;">Güncelle</a></small>
+            {% endif %}
+            <div class="tab_content">
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon3" style="width:150px;">İş Veren</span>
+                    <span class="form-control" id="basic-url" aria-describedby="basic-addon3">{{ deactive.employer }}</span>
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon3" style="width:150px;">İşin Adı</span>
+                    <span class="form-control" id="basic-url" aria-describedby="basic-addon3">{{ deactive.name_of_job }}</span>
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon3" style="width:150px;">Kontrol</span>
+                    <span class="form-control" id="basic-url" aria-describedby="basic-addon3">{{ deactive.control }}</span>
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon3" style="width:150px;">İnşaat Alanı</span>
+                    <span class="form-control" id="basic-url" aria-describedby="basic-addon3">{{ deactive.construction_area }}</span>
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon3" style="width:150px;">Pafta No</span>
+                    <span class="form-control" id="basic-url" aria-describedby="basic-addon3">{{ deactive.threader_no }}</span>
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon3" style="width:150px;">Ada No</span>
+                    <span class="form-control" id="basic-url" aria-describedby="basic-addon3">{{ deactive.island_no }}</span>
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon3" style="width:150px;">Parsel No</span>
+                    <span class="form-control" id="basic-url" aria-describedby="basic-addon3">{{ deactive.parcel_no }}</span>
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon3" style="width:150px;">Telefon</span>
+                    <span class="form-control" id="basic-url" aria-describedby="basic-addon3">{{ deactive.phone }}</span>
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon3" style="width:150px;">Fax</span>
+                    <span class="form-control" id="basic-url" aria-describedby="basic-addon3">{{ deactive.fax }}</span>
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon3" style="width:150px;">Adres</span>
+                    <span class="form-control" id="basic-url" aria-describedby="basic-addon3">{{ deactive.address }}</span>
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon3" style="width:150px;">Başlangıç Tarihi</span>
+                    <span class="form-control" id="basic-url" aria-describedby="basic-addon3">{{ deactive.start_date }}</span>
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon3" style="width:150px;">Bitiş Tarihi</span>
+                    <span class="form-control" id="basic-url" aria-describedby="basic-addon3">{{ deactive.end_date }}</span>
+                </div>
+            </div>
+            </h6>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

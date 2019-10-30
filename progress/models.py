@@ -9,9 +9,9 @@ from django.core.validators import RegexValidator, MinValueValidator, MaxValueVa
 # KEŞİF
 class Discovery(models.Model):
     worksite = models.ForeignKey('firm.Worksite', verbose_name='Şantiye', related_name="discoveries", on_delete=models.CASCADE)
-    no = models.CharField(max_length=10, verbose_name="Poz No")
-    name = models.CharField(max_length=50, verbose_name="Poz Adı")
-    unit = models.CharField(max_length=10, verbose_name="Birim")
+    no = models.CharField(max_length=50, verbose_name="Poz No")
+    name = models.CharField(max_length=500, verbose_name="Poz Adı")
+    unit = models.CharField(max_length=5, verbose_name="Birim")
     amount = models.FloatField(default=0, verbose_name="Miktar")
     price = models.FloatField(default=0, verbose_name="Birim Fiyat")
     total = models.FloatField(default=0, verbose_name="Keşif Tutar")
@@ -28,14 +28,14 @@ class Discovery(models.Model):
 # ANALİZ
 class Analysis(models.Model):
     discovery = models.ForeignKey('Discovery', verbose_name='Keşif', related_name="analysis", on_delete=models.CASCADE)
-    detail = models.TextField(max_length=500, blank=True, null=True, verbose_name='Poz Detayı')
+    detail = models.TextField(max_length=2500, blank=True, null=True, verbose_name='Poz Detayı')
     profit = models.FloatField(default=0, verbose_name="Müteahhitlik Kârı")
     material = models.FloatField(default=0, verbose_name="Malzeme Toplam")
     workmanship = models.FloatField(default=0, verbose_name="İşçilik Toplam")
     overheads = models.FloatField(default=0, verbose_name="Genel Gider Toplam")
     tender = models.FloatField(default=0, verbose_name="Teklif Fiyatı")
     year = models.CharField(max_length=4, default=2019, verbose_name="Rayiç Yılı")
-    note = models.TextField(max_length=500, blank=True, null=True, verbose_name='Notlar')
+    note = models.TextField(max_length=1500, blank=True, null=True, verbose_name='Notlar')
     create_date = models.DateField(auto_now_add=True, editable=False)
 
     class Meta:
@@ -50,7 +50,7 @@ class Analysis(models.Model):
 class AnalysisDetail(models.Model):
     analysis = models.ForeignKey('Analysis', verbose_name='Analiz', related_name="analysis_detail", on_delete=models.CASCADE)
     category = models.CharField(max_length=15, verbose_name="Kategori")
-    definition = models.CharField(max_length=40, verbose_name='Tanım')
+    definition = models.CharField(max_length=100, verbose_name='Tanım')
     amount = models.FloatField(default=0, verbose_name="Miktar")
     price = models.FloatField(default=0, verbose_name="Birim Fiyat")
     total = models.FloatField(default=0, verbose_name="Tutar")

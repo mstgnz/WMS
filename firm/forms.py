@@ -56,7 +56,7 @@ class SubcontractorForm(forms.ModelForm):
 class ContractForm(forms.ModelForm):
     class Meta:
         model = Contract
-        fields = ['worksite','category','no','date','name','price','guarantee','advance','note','file']
+        fields = ['worksite','category','no','date','name','price','guarantee','advance','progress','note','file']
         widgets = {
             'date': DateInput()
         }

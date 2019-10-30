@@ -5,6 +5,7 @@ pip install django
 pip install mysqlclient
 pip install Pillow
 pip install django_cleanup
+pip install djangorestframework
 
 site admin girişi
 mail : admin@admin.com
@@ -79,7 +80,7 @@ Her şantiye için maliyet hesaplamaları kısaca şu şekilde olacaktır.
 - işveren tarafından onaylanmayan tutanaklar hangileri
 - günlük raporlarda ortalama kaç kişi ne kadarlık iş yapılmış
 - günlük raporlarda iş geçikmesine neden olan durumlar ve gecikme gün sayısı
-- aylık rapora göre sözlşeme bitim süresine göre iş yetişiyor mu yetişmiyor mu
+- aylık rapora göre sözleşeme bitim süresine göre iş yetişiyor mu yetişmiyor mu
 - kaç tane üst yazı yazılmış, kaç tanesine cevap gelmiş
 - siparişlerde verilen malzeme ile irsaliye ile gelen malzemeler uyuşuyor mu
 - siparişler zamanında geliyor mu

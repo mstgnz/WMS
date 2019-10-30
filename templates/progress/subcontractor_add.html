@@ -1,0 +1,353 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="col-xl-7 col-lg-11 col-md-12">
+    <form method="post"> {% csrf_token %}
+    <table class="table" style="border:dashed 2px #ccc; background:#fff; margin-bottom:100px;">
+        <tr style="border-bottom:solid 1px #ddd;">
+            <td colspan="7" style="text-align:center; background:#eee;"><b>HAKEDİŞ RAPORU</b></td>
+        </tr>
+        <tr>
+            <td colspan="7" style=" height:10px; border-bottom:solid 1px #ddd;"></td>
+        </tr>
+        <tr>
+            <td style="width:30px;"></td>
+            <td colspan="1" style="border-bottom:solid 1px #ddd;"><b>ŞANTİYE</b></td>
+            <td colspan="2" style="border-bottom:solid 1px #ddd;">{{ form.worksite }}</td>
+            <td colspan="1" style="border-bottom:solid 1px #ddd;"><small><b>HAKEDİŞ NO</b></small></td>
+            <td colspan="1" style="border-bottom:solid 1px #ddd;">{{ form.no }}</td>
+            <td style="width:30px;"></td>
+        </tr>
+         <tr>
+            <td></td>
+            <td colspan="1" style="border-bottom:solid 1px #ddd;"><b>İŞVEREN</b></td>
+            <td colspan="2" style="border-bottom:solid 1px #ddd;">{{ form.employer }}</td>
+            <td colspan="1" style="border-bottom:solid 1px #ddd;"><small><b>HAKEDİŞ TARİHİ</b></small></td>
+            <td colspan="1" style="border-bottom:solid 1px #ddd;">{{ form.date }}</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td colspan="1" style="border-bottom:solid 1px #ddd;"><b>YÜKLENİCİ</b></td>
+            <td colspan="2" style="border-bottom:solid 1px #ddd;">{{ form.subcontractor }}</td>
+            <td colspan="3"></td>
+        </tr>
+        <tr>
+            <td colspan="7" style="height:10px; border-bottom:solid 1px #ddd;"></td>
+        </tr>
+        <tr>
+            <td style="border-bottom:solid 1px #ddd;"><b>A)</b></td>
+            <td colspan="4" style="border-bottom:solid 1px #ddd;">KÜMÜLATİF HAKEDİŞ TUTARI</td>
+            <td style="text-align:right; border-bottom:solid 1px #ddd;">{{ form.cumulative }}</td>
+            <td style="border-bottom:solid 1px #ddd;"></td>
+        </tr>
+        <tr>
+            <td style="border-bottom:solid 1px #ddd;"><b>B)</b></td>
+            <td colspan="4" style="border-bottom:solid 1px #ddd;">İHZARAT TUTARI</td>
+            <td style="text-align:right; border-bottom:solid 1px #ddd;">{{ form.acquisition }}</td>
+            <td style="border-bottom:solid 1px #ddd;"></td>
+        </tr>
+        <tr>
+            <td style="border-bottom:solid 1px #ddd;"><b>C)</b></td>
+            <td colspan="4" style="border-bottom:solid 1px #ddd;">İLAVE İŞLER TUTARI</td>
+            <td style="text-align:right; border-bottom:solid 1px #ddd;">{{ form.additional }}</td>
+            <td style="border-bottom:solid 1px #ddd;"></td>
+        </tr>
+        <tr>
+            <td style="border-bottom:solid 1px #ddd;"><b>D)</b></td>
+            <td colspan="4" style="border-bottom:solid 1px #ddd;">TOPLAM HAKEDİŞ TUTARI</td>
+            <td style="text-align:right; border-bottom:solid 1px #ddd;">{{ form.total }}</td>
+            <td style="border-bottom:solid 1px #ddd;"></td>
+        </tr>
+        <tr>
+            <td style="border-bottom:solid 1px #ddd;"><b>E)</b></td>
+            <td colspan="4" style="border-bottom:solid 1px #ddd;">ÖNCEKİ HAKEDİŞ TUTARI</td>
+            <td style="text-align:right; border-bottom:solid 1px #ddd;">{{ form.previous_amount }}</td>
+            <td style="border-bottom:solid 1px #ddd;"></td>
+        </tr>
+        <tr>
+            <td style="border-bottom:solid 1px #ddd;"><b>F)</b></td>
+            <td colspan="4" style="border-bottom:solid 1px #ddd;">BU HAKEDİŞ TUTARI</td>
+            <td style="text-align:right; border-bottom:solid 1px #ddd;">{{ form.this_amount }}</td>
+            <td style="border-bottom:solid 1px #ddd;"></td>
+        </tr>
+        <tr>
+            <td style="border-bottom:solid 1px #ddd;"><b>G)</b></td>
+            <td colspan="4" style="border-bottom:solid 1px #ddd;">KDV 18%</td>
+            <td style="text-align:right; border-bottom:solid 1px #ddd;">{{ form.vat }}</td>
+            <td style="border-bottom:solid 1px #ddd;"></td>
+        </tr>
+        <tr>
+            <td style="border-bottom:solid 1px #ddd;"><b>H)</b></td>
+            <td colspan="4" style="border-bottom:solid 1px #ddd;">KDV DAHİL HAKEDİŞ TUTARI</td>
+            <td style="text-align:right; border-bottom:solid 1px #ddd;">{{ form.progress_amount }}</td>
+            <td style="border-bottom:solid 1px #ddd;"></td>
+        </tr>
+        <tr>
+            <td colspan="7" style="height:10px; border-bottom:solid 1px #ddd;"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td colspan="2" style="border-bottom:solid 1px #ddd;"><b>KESİNTİLER</b></td>
+            <td style="border-bottom:solid 1px #ddd;"><b>TOPLAM KESİLEN</b></td>
+            <td style="border-bottom:solid 1px #ddd;"><b>ÖNCEKİ KESİLEN</b></td>
+            <td style="border-bottom:solid 1px #ddd;"><b>BU HAKEDİŞ KESİLEN</b></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td style="border-bottom:solid 1px #ddd; min-width:200px;">TEMİNAT KESİNTİSİ</td>
+            <td style="text-align:right; border-bottom:solid 1px #ddd;"><input type="number" min="0" max="100" step="1" name="warrant_rate"/></td>
+            <td style="text-align:right; border-bottom:solid 1px #ddd;">{{ form.total_warrant }}</td>
+            <td style="text-align:right; border-bottom:solid 1px #ddd;">{{ form.previous_warrant }}</td>
+            <td style="text-align:right; border-bottom:solid 1px #ddd;">{{ form.this_warrant }}</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td style="width:250px; border-bottom:solid 1px #ddd;">AVANS KESİNTİSİ</td>
+            <td style="width:50px; text-align:right; border-bottom:solid 1px #ddd;"><input type="number" min="0" max="100" step="1" name="advance_rate"/></td>
+            <td style="width:200px; text-align:right; border-bottom:solid 1px #ddd;">{{ form.total_advance }}</td>
+            <td style="width:200px; text-align:right; border-bottom:solid 1px #ddd;">{{ form.previous_advance }}</td>
+            <td style="width:200px; text-align:right; border-bottom:solid 1px #ddd;">{{ form.this_advance }}</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td style="border-bottom:solid 1px #ddd;">STOPAJ KESİNTİSİ</td>
+            <td style="text-align:right; border-bottom:solid 1px #ddd;"><input type="number" min="0" max="100" step="1" name="stoppage_rate"/></td>
+            <td style="text-align:right; border-bottom:solid 1px #ddd;">{{ form.total_stoppage }}</td>
+            <td style="text-align:right; border-bottom:solid 1px #ddd;">{{ form.previous_stoppage }}</td>
+            <td style="text-align:right; border-bottom:solid 1px #ddd;">{{ form.this_stoppage }}</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td style="border-bottom:solid 1px #ddd;">KDV TEVFİKATI</td>
+            <td style="text-align:right; border-bottom:solid 1px #ddd;"><input type="number" min="0" max="100" step="1" name="tax_cut_rate"/></td>
+            <td style="text-align:right; border-bottom:solid 1px #ddd;">{{ form.total_tax_cut }}</td>
+            <td style="text-align:right; border-bottom:solid 1px #ddd;">{{ form.previous_tax_cut }}</td>
+            <td style="text-align:right; border-bottom:solid 1px #ddd;">{{ form.this_tax_cut }}</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td colspan="2" style="border-bottom:solid 1px #ddd;">CEZA KESİNTİSİ</td>
+            <td style="text-align:right; border-bottom:solid 1px #ddd;">{{ form.total_penalty }}</td>
+            <td style="text-align:right; border-bottom:solid 1px #ddd;">{{ form.previous_penalty }}</td>
+            <td style="text-align:right; border-bottom:solid 1px #ddd;">{{ form.this_penalty }}</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td colspan="2" style="border-bottom:solid 1px #ddd;">DİĞER KESİNTİLER</td>
+            <td style="text-align:right; border-bottom:solid 1px #ddd;">{{ form.total_deduction }}</td>
+            <td style="text-align:right; border-bottom:solid 1px #ddd;">{{ form.previous_deduction }}</td>
+            <td style="text-align:right; border-bottom:solid 1px #ddd;">{{ form.this_deduction }}</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td colspan="7" style="height:10px; border-bottom:solid 1px #ddd;"></td>
+        </tr>
+        <tr>
+            <td style="border-bottom:solid 1px #ddd;"><b>I)</b></td>
+            <td colspan="2" style="border-bottom:solid 1px #ddd;">KESİNTİLER TOPLAMI</td>
+            <td style="text-align:right; border-bottom:solid 1px #ddd;"><input type="number" readonly name="total_deductions"/></td>
+            <td style="text-align:right; border-bottom:solid 1px #ddd;"><input type="number" readonly name="previous_deductions"/></td>
+            <td style="text-align:right; border-bottom:solid 1px #ddd;"><input type="number" readonly name="this_deductions"/></td>
+            <td style="border-bottom:solid 1px #ddd;"></td>
+        </tr>
+        <tr>
+            <td colspan="7" style="height:10px; border-bottom:solid 1px #ddd;"></td>
+        </tr>
+        <tr>
+            <td style="border-bottom:solid 1px #ddd;"><b>J)</b></td>
+            <td colspan="4" style="border-bottom:solid 1px #ddd;">ÖDENECEK NET TUTAR</td>
+            <td style="text-align:right; border-bottom:solid 1px #ddd;">{{ form.amount_paid }}</td>
+            <td style="border-bottom:solid 1px #ddd;"></td>
+        </tr>
+        <tr>
+            <td colspan="7"><button type="submit" class="btn btn-outline-info button"><i class="fas fa-angle-right"></i> {{ title }} <i class="fas fa-angle-left"></i></button></td>
+        </tr>
+    </table>
+    </form>
+</div>
+
+
+{% endblock %}
+
+{% block css %}
+<style>
+    tr td{
+        padding:8px;
+    }
+    input{
+        border:none;
+        border-bottom:solid 1px red;
+    }
+    input:read-only {
+        border:none;
+    }
+    input[type="number"]{
+        text-align:right;
+    }
+    input[name$="rate"]{
+        text-align:center;
+    }
+</style>
+{% endblock %}
+
+{% block js %}
+<script>
+    // AJAX
+    $('input[name=employer]').attr('readonly',true)
+    $('select[name=subcontractor]').empty()
+    $('select[name=subcontractor]').append('<option>---------</option>')
+    $("select[name=worksite]").change(()=>{
+        $('select[name=subcontractor]').empty()
+        $('select[name=subcontractor]').append('<option>---------</option>')
+        $('form').append('<input type="hidden" name="type" value="sub_select" />')
+        const form_serialize = $('form').serialize()
+        $.ajax({
+            url: '/ajax/',
+            method: 'POST',
+            data: form_serialize,
+            type: 'json',
+            success: (result)=>{
+                firm = JSON.parse(result.firm)
+                sub = JSON.parse(result.sub)
+                $('input[name=employer]').val(firm[0]['fields']['name'])
+                $.each(sub, function(key, value){
+                    $('select[name=subcontractor]').append('<option value="'+value.pk+'">'+value.fields.name+'</option>');
+                });
+            }
+        })
+    })
+    $("select[name=subcontractor]").change(()=>{
+        $('form').append('<input type="hidden" name="type" value="subcontractor" />')
+        const form_serialize = $('form').serialize()
+        $.ajax({
+            url: '/ajax/',
+            method: 'POST',
+            data: form_serialize,
+            type: 'json',
+            success: (result)=>{
+                result = JSON.parse(result)
+                no = result.length==1 ? result[0]['fields']['no']+1 : 1
+                $('input[name=no]').val(no)
+                if(result.length==1){
+                    $('input[name=previous_amount]').attr('readonly',true)
+                    $('input[name=previous_amount]').val(result[0]['fields']['total'])
+                    $('input[name=previous_warrant ]').attr('readonly',true)
+                    $('input[name=previous_warrant]').val(result[0]['fields']['total_warrant'])
+                    $('input[name=previous_advance ]').attr('readonly',true)
+                    $('input[name=previous_advance]').val(result[0]['fields']['total_advance'])
+                    $('input[name=previous_stoppage ]').attr('readonly',true)
+                    $('input[name=previous_stoppage]').val(result[0]['fields']['total_stoppage'])
+                    $('input[name=previous_tax_cut ]').attr('readonly',true)
+                    $('input[name=previous_tax_cut]').val(result[0]['fields']['total_tax_cut'])
+                    $('input[name=previous_penalty ]').attr('readonly',true)
+                    $('input[name=previous_penalty]').val(result[0]['fields']['total_penalty'])
+                    $('input[name=previous_deduction ]').attr('readonly',true)
+                    $('input[name=previous_deduction]').val(result[0]['fields']['total_deduction'])
+                }
+            }
+        })
+    })
+
+    // HAKEDİŞ SAYFASINDA KDV VE NET TOPLAM TUTARLARINI OTOMATİK HESAPLIYOR.
+    $('input[name=warrant_rate]').val(10)
+    $('input[name=advance_rate]').val(10)
+    $('input[name=stoppage_rate]').val(3)
+    $('input[name=tax_cut_rate]').val(90)
+    $('input').change(()=>{
+        $('input[name=total]').val((
+            parseFloat($('input[name=cumulative]').val()) +
+            parseFloat($('input[name=acquisition]').val()) +
+            parseFloat($('input[name=additional]').val())
+        ).toFixed(2))
+        $('input[name=this_amount]').val((
+            parseFloat($('input[name=total]').val()) -
+            parseFloat($('input[name=previous_amount]').val())
+        ).toFixed(2))
+        $('input[name=vat]').val(
+            parseFloat($('input[name=this_amount]').val()*0.18).toFixed(2)
+        )
+        $('input[name=progress_amount]').val((
+            parseFloat($('input[name=this_amount]').val()) +
+            parseFloat($('input[name=vat]').val())
+        ).toFixed(2))
+        $('input[name=total_warrant]').val((
+            parseFloat($('input[name=total]').val()) *
+            parseFloat($('input[name=warrant_rate]').val()) / 100
+        ).toFixed(2))
+        $('input[name=this_warrant]').val((
+            parseFloat($('input[name=total_warrant]').val()) -
+            parseFloat($('input[name=previous_warrant]').val())
+        ).toFixed(2))
+        $('input[name=total_advance]').val((
+            parseFloat($('input[name=total]').val()) *
+            parseFloat($('input[name=advance_rate]').val()) / 100
+        ).toFixed(2))
+        $('input[name=this_advance]').val((
+            parseFloat($('input[name=total_advance]').val()) -
+            parseFloat($('input[name=previous_advance]').val())
+        ).toFixed(2))
+        $('input[name=total_stoppage]').val((
+            parseFloat($('input[name=total]').val()) *
+            parseFloat($('input[name=stoppage_rate]').val()) / 100
+        ).toFixed(2))
+        $('input[name=this_stoppage]').val((
+            parseFloat($('input[name=total_stoppage]').val()) -
+            parseFloat($('input[name=previous_stoppage]').val())
+        ).toFixed(2))
+        $('input[name=total_tax_cut]').val((
+            parseFloat($('input[name=vat]').val()) *
+            parseFloat($('input[name=tax_cut_rate]').val()) / 100
+        ).toFixed(2))
+        $('input[name=this_tax_cut]').val((
+            parseFloat($('input[name=total_tax_cut]').val()) -
+            parseFloat($('input[name=previous_tax_cut]').val())
+        ).toFixed(2))
+        $('input[name=this_penalty]').val((
+            parseFloat($('input[name=total_penalty]').val()) -
+            parseFloat($('input[name=previous_penalty]').val())
+        ).toFixed(2))
+        $('input[name=this_deduction]').val((
+            parseFloat($('input[name=total_deduction]').val()) -
+            parseFloat($('input[name=previous_deduction]').val())
+        ).toFixed(2))
+        $('input[name=total_deductions]').val((
+            parseFloat($('input[name=total_warrant]').val()) +
+            parseFloat($('input[name=total_advance]').val()) +
+            parseFloat($('input[name=total_stoppage]').val()) +
+            parseFloat($('input[name=total_tax_cut]').val()) +
+            parseFloat($('input[name=total_penalty]').val()) +
+            parseFloat($('input[name=total_deduction]').val())
+        ).toFixed(2))
+        $('input[name=previous_deductions]').val((
+            parseFloat($('input[name=previous_warrant]').val()) +
+            parseFloat($('input[name=previous_advance]').val()) +
+            parseFloat($('input[name=previous_stoppage]').val()) +
+            parseFloat($('input[name=previous_tax_cut]').val()) +
+            parseFloat($('input[name=previous_penalty]').val()) +
+            parseFloat($('input[name=previous_deduction]').val())
+        ).toFixed(2))
+        $('input[name=this_deductions]').val((
+            parseFloat($('input[name=this_warrant]').val()) +
+            parseFloat($('input[name=this_advance]').val()) +
+            parseFloat($('input[name=this_stoppage]').val()) +
+            parseFloat($('input[name=this_tax_cut]').val()) +
+            parseFloat($('input[name=this_penalty]').val()) +
+            parseFloat($('input[name=this_deduction]').val())
+        ).toFixed(2))
+        $('input[name=amount_paid]').val((
+            parseFloat($('input[name=progress_amount]').val()) -
+            parseFloat($('input[name=this_deductions]').val())
+        ).toFixed(2))
+    })
+
+
+</script>
+{% endblock %}

@@ -146,6 +146,7 @@ class Contract(models.Model):
     price = models.DecimalField(max_digits=12, decimal_places=2, verbose_name="Sözleşme Bedeli")
     guarantee = models.DecimalField(max_digits=9, decimal_places=2, blank=True, null=True, verbose_name="Teminat Bedeli")
     advance = models.DecimalField(max_digits=9, decimal_places=2, blank=True, null=True, verbose_name="Avans Bedeli")
+    progress = models.CharField(max_length=2, verbose_name="Hakediş Günü")
     note = models.CharField(max_length=1000, blank=True, null=True, verbose_name="Sözleşme Notları")
     file = models.FileField(verbose_name='Sözleşme', help_text="İmzalı sözleşmeyi PDF olarak yükleyiniz.")
     create_date = models.DateField(auto_now_add=True, editable=False)

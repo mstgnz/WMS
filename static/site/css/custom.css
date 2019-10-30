@@ -1,175 +1,175 @@
-*{
-    outline: none;
-    list-style: none;
+* {
+  outline: none;
+  list-style: none;
 }
-body{
-    margin-top: 3.5em;
-    background-color: #F9F8F8;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 16px;
+body {
+  margin-top: 3.5em;
+  background-color: #f9f8f8;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
 }
-.w-5{
-    width: 5%;
+.w-5 {
+  width: 5%;
 }
-.h-5{
-    height: 5%;
+.h-5 {
+  height: 5%;
 }
-.form .form-control{
-    height: 100%;
+.form .form-control {
+  height: 100%;
 }
-.form label{
-    display: block;
-    width: 100%;
-    float: left;
-    padding-left: 10px;
-    line-height: 30px;
-    margin-bottom: 1px;
+.form label {
+  display: block;
+  width: 100%;
+  float: left;
+  padding-left: 10px;
+  line-height: 30px;
+  margin-bottom: 1px;
 }
-.form input{
-    width: 100%;
-    padding-left: 5px;
-    margin-bottom: 1px;
-    border: none;
+.form input {
+  width: 100%;
+  padding-left: 5px;
+  margin-bottom: 1px;
+  border: none;
 }
-.form input[type="submit"]{
-    cursor: pointer;
-    margin-top: 5px;
+.form input[type="submit"] {
+  cursor: pointer;
+  margin-top: 5px;
 }
-.form input[type="file"]{
-    cursor: pointer;
-    font: 300 14px sans-serif;
-    color: #aaa;
+.form input[type="file"] {
+  cursor: pointer;
+  font: 300 14px sans-serif;
+  color: #aaa;
 }
-select{
-    width: 100%;
-    border: none;
-    background: #fff;
-	padding: 0px 5px;
-	background-image: url("data:image/svg+xml, %3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M7.406 7.828l4.594 4.594 4.594-4.594 1.406 1.406-6 6-6-6z'%3E%3C/path%3E%3C/svg%3E");
-	background-position: calc(100% - 3px) 50%;
-	background-repeat: no-repeat;
-	background-size: 16px;
-	-webkit-appearance: none;
-	-moz-appearance: none;
+select {
+  width: 100%;
+  border: none;
+  background: #fff;
+  padding: 0px 5px;
+  background-image: url("data:image/svg+xml, %3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M7.406 7.828l4.594 4.594 4.594-4.594 1.406 1.406-6 6-6-6z'%3E%3C/path%3E%3C/svg%3E");
+  background-position: calc(100% - 3px) 50%;
+  background-repeat: no-repeat;
+  background-size: 16px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
 }
-.form input[type="checkbox"]{
-    width: 15px;
-    height: 15px;
-    margin-top: 5px;
-    margin-left: 5px;
+.form input[type="checkbox"] {
+  width: 15px;
+  height: 15px;
+  margin-top: 5px;
+  margin-left: 5px;
 }
-.form textarea{
-    width: 100%;
-    height: 100px;
+.form textarea {
+  width: 100%;
+  height: 100px;
 }
-.customfile input[type="checkbox"]{
-    width: 20px;
+.customfile input[type="checkbox"] {
+  width: 20px;
 }
-.customfile label{
-    width: 50px;
-    float: right;
-    font-size: 14px;
-    cursor: pointer;
+.customfile label {
+  width: 50px;
+  float: right;
+  font-size: 14px;
+  cursor: pointer;
 }
-.customfile input[type="file"]{
-    width: 65%;
+.customfile input[type="file"] {
+  width: 65%;
 }
-.button{
-    width: 100%;
-    cursor: pointer;
-    margin-top: 5px;
+.button {
+  width: 100%;
+  cursor: pointer;
+  margin-top: 5px;
 }
-.clear{
-    clear: both;
+.clear {
+  clear: both;
 }
-.accordion{
-    padding: 0;
-    margin: 0;
+.accordion {
+  padding: 0;
+  margin: 0;
 }
-.accordion p{
-    padding: 0;
-    margin: 0;
-    display: none;
+.accordion p {
+  padding: 0;
+  margin: 0;
+  display: none;
 }
-.accordion li h6{
-    padding: 10px;
-    margin-bottom: 1px;
-    cursor: pointer;
-    font-weight: normal;
+.accordion li h6 {
+  padding: 10px;
+  margin-bottom: 1px;
+  cursor: pointer;
+  font-weight: normal;
 }
-.accordion li h6 i{
-    width: 20px;
+.accordion li h6 i {
+  width: 20px;
 }
-.accordion li h6 a{
-    color: #F9F8F8;
-    margin-left: 5px;
+.accordion li h6 a {
+  color: #f9f8f8;
+  margin-left: 5px;
 }
-.accordion li h6:hover{
-    background-color: #A1C6EA;
+.accordion li h6:hover {
+  background-color: #a1c6ea;
 }
-.accordion li h6 span{
-    float: right;
+.accordion li h6 span {
+  float: right;
 }
-.accordion li p a{
-    display: block;
-    font-size: 14px;
-    padding: 5px 30px;
-    color: #111D4A;
-    background-color: #A1C6EA;
+.accordion li p a {
+  display: block;
+  font-size: 14px;
+  padding: 5px 30px;
+  color: #111d4a;
+  background-color: #a1c6ea;
 }
-.accordion li p a i{
-    margin-right: 5px;
+.accordion li p a i {
+  margin-right: 5px;
 }
-#tab{
-    padding: 0;
-    margin: 0;
-    list-style: none;
+#tab {
+  padding: 0;
+  margin: 0;
+  list-style: none;
 }
-#tab li{
-    float: left;
-    margin-right: 5px;
-    border: solid 1px #ddd;
-    padding: 4px 10px;
-    color: #333;
-    background-color: #eee;
-    cursor: pointer;
+#tab li {
+  float: left;
+  margin-right: 5px;
+  border: solid 1px #ddd;
+  padding: 4px 10px;
+  color: #333;
+  background-color: #eee;
+  cursor: pointer;
 }
-#tab li.active{
-    background-color: #555;
-    color: #ddd;
-    border-color: #555;
+#tab li.active {
+  background-color: #555;
+  color: #ddd;
+  border-color: #555;
 }
-.tab_list{
-    border: solid 1px #ddd;
-    margin-top: 2px;
+.tab_list {
+  border: solid 1px #ddd;
+  margin-top: 2px;
 }
-.tab_list h6{
-    margin: 0;
-    padding: 10px;
-    cursor: pointer;
+.tab_list h6 {
+  margin: 0;
+  padding: 10px;
+  cursor: pointer;
 }
-.tab_list h6 a{
-    float: right;
+.tab_list h6 a {
+  float: right;
 }
-.tab_list h6.active{
-    background-color: #eee;
+.tab_list h6.active {
+  background-color: #eee;
 }
-.tab_content{
-    padding: 10px;
+.tab_content {
+  padding: 10px;
 }
-.tab_content span{
-    margin-top: 2px;
+.tab_content span {
+  margin-top: 2px;
 }
-.card-header{
-    background-color: #D4AF37;
+.card-header {
+  background-color: #d4af37;
 }
-.card-body{
-    background-color: #FBEEE0;
+.card-body {
+  background-color: #fbeee0;
 }
-.input-group-addon i{
-    float: right;
-    margin-top: -20px;
+.input-group-addon i {
+  float: right;
+  margin-top: -20px;
 }
-.help_text{
-    color: cadetblue;
+.help_text {
+  color: cadetblue;
 }

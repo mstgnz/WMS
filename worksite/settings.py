@@ -77,7 +77,7 @@ DATABASES = {
         'NAME'     : 'worksite',
         'HOST'     : '127.0.0.1',
         'USER'     : 'root',
-        'PASSWORD' : 'mstgnz'
+        'PASSWORD' : 'Mes1a3*2'
     }
 }
 

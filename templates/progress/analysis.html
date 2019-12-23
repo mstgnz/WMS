@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="row">
-    <div class="col-xl-8 col-lg-11 col-md-12">
+    <div class="col-xl-10 col-lg-11 col-md-12">
         <form method="post"> {% csrf_token %}
             <table class="table" style="border:dashed 2px #ccc; background:#fff; margin-bottom:100px;">
             <tr><td colspan=6 style="text-align:center; font-size:20px; font-weight:bold; color:brown">{{ request.user.firm.full_name }}</td></tr>

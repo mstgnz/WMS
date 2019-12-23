@@ -4,20 +4,11 @@ from django.conf.urls.static import static
 from django.conf import settings
 from django.views.generic import TemplateView
 from . import ajax
-from . import views
-from rest_framework import routers
-
-# REST FRAMEWORK
-router = routers.DefaultRouter()
-router.register('firms', views.FirmView)
-router.register('worksites', views.WorksiteView)
-router.register('subcontractors', views.SubcontractorView)
-router.register('contracts', views.ContractView)
 
 # URL
 urlpatterns = [
     path('admin/', admin.site.urls),
-    #path('api/',include(router.urls)), # REST FRAMEWORK URL REST MİMARİ TAMAMLANDIĞINDA AKTİF EDİLECEKTİR
+    #path('graphql/',include(router.urls)),
     path('user/', include('user.urls')),
     path('firm/', include('firm.urls')),
     path('progress/', include('progress.urls')),

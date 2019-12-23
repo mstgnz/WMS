@@ -32,7 +32,6 @@ INSTALLED_APPS = [
     'document',
     'accounting',
     # Other Apps
-    'rest_framework',
     'django_cleanup'
 ]
 

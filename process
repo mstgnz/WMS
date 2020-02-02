@@ -5,7 +5,6 @@ pip install django
 pip install mysqlclient
 pip install Pillow
 pip install django_cleanup
-pip install djangorestframework
 
 site admin girişi
 mail : admin@admin.com

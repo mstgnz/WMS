@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'document',
     'accounting',
     # Other Apps
+    'graphene_django',
     'django_cleanup'
 ]
 
@@ -129,6 +130,8 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')] # collectstatic çalışt�
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-
+GRAPHENE = {
+    'SCHEMA': 'worksite.schema.schema' # Where your Graphene schema lives
+}
 
 # Dependencies -> mysqlclient, Pillow, django_cleanup

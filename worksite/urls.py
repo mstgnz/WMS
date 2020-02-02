@@ -3,12 +3,13 @@ from django.contrib import admin
 from django.conf.urls.static import static
 from django.conf import settings
 from django.views.generic import TemplateView
+from graphene_django.views import GraphQLView
 from . import ajax
 
 # URL
 urlpatterns = [
     path('admin/', admin.site.urls),
-    #path('graphql/',include(router.urls)),
+    path('graphql', GraphQLView.as_view(graphiql=True)),
     path('user/', include('user.urls')),
     path('firm/', include('firm.urls')),
     path('progress/', include('progress.urls')),

@@ -2,57 +2,46 @@
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>{% block title %}Worksite{% endblock %}</title>
-    <meta
-      charset="UTF-8"
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <link rel="stylesheet" href="{% static 'site/css/bootstrap.min.css' %}" />
-    <link
-      rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
-      integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="{% static 'site/css/custom.css' %}" />
-    {% block css %}{% endblock %}
-  </head>
-  <body>
-    {% if user.is_authenticated %} {% include 'navbar.html' %}
 
-    <div class="container-fluid">
-      <div class="row">
-        <div
-          class="col-xl-2 col-lg-3 col-md-3 d-none d-md-block d-print-none left-menu"
-          style="position:fixed; height:100%; left:0; background-color:#507DBC; padding:5px; overflow: auto;"
-        >
-          {% include 'menu.html' %}
-        </div>
-        <div
-          class="col-xl-8 col-lg-6 col-md-6 offset-xl-2 offset-lg-3 offset-md-3 pt-2"
-        >
-          {% include 'messages.html' %} {% block content %}{% endblock %}
-        </div>
-        <div
-          class="col-xl-2 col-lg-3 col-md-3 d-none d-xl-block d-print-none"
-          style="position:fixed; height:100%; z-index:-1; right:0; padding:5px"
-        >
-          {% block logs %}{% endblock %}
-        </div>
+<head>
+  <title>{% block title %}Worksite{% endblock %}</title>
+  <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <link rel="stylesheet" href="{% static 'site/css/bootstrap.min.css' %}" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
+    integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous" />
+  <link rel="stylesheet" href="{% static 'site/css/custom.css' %}" />
+  {% block css %}{% endblock %}
+</head>
+
+<body>
+  {% if user.is_authenticated %} {% include 'navbar.html' %}
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xl-2 col-lg-3 col-md-3 d-none d-md-block d-print-none left-menu"
+        style="position:fixed; height:100%; left:0; background-color:#507DBC; padding:5px; overflow: auto;">
+        {% include 'menu.html' %}
+      </div>
+      <div class="col-xl-8 col-lg-6 col-md-6 offset-xl-2 offset-lg-3 offset-md-3 pt-2">
+        {% include 'messages.html' %} {% block content %}{% endblock %}
+      </div>
+      <div class="col-xl-2 col-lg-3 col-md-3 d-none d-xl-block d-print-none"
+        style="position:fixed; height:100%; z-index:-1; right:0; padding:5px">
+        {% block logs %}{% endblock %}
       </div>
     </div>
+  </div>
 
-    {% else %}
-    <div class="container-fluid">
-      {% block lobby %}{% endblock %}
-    </div>
-    {% endif %}
+  {% else %}
+  <div class="container-fluid">
+    {% block lobby %}{% endblock %}
+  </div>
+  {% endif %}
 
-    <script src="{% static 'site/js/jquery.min.js' %}"></script>
-    <script src="{% static 'site/js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'site/js/custom.js' %}"></script>
-    {% block js %}{% endblock %}
-  </body>
+  <script src="{% static 'site/js/jquery.min.js' %}"></script>
+  <script src="{% static 'site/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'site/js/custom.js' %}"></script>
+  {% block js %}{% endblock %}
+</body>
+
 </html>

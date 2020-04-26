@@ -102,6 +102,9 @@ class Progress(models.Model):
     class Meta:
         db_table = 'Progress'
 
+    def __str__(self):
+        return str(self.no)
+
 
 # HAKEDİŞ İCMAL
 class Synopsis(models.Model):
@@ -120,3 +123,6 @@ class Synopsis(models.Model):
 
     class Meta:
         db_table = 'Synopsis'
+    
+    def __str__(self):
+        return self.name

@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'accounting',
     # Other Apps
     'graphene_django',
+    'rest_framework',
     'django_cleanup'
 ]
 
@@ -132,6 +133,17 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 GRAPHENE = {
     'SCHEMA': 'worksite.schema.schema' # Where your Graphene schema lives
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES':(
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES':(
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
 }
 
 # Dependencies -> mysqlclient, Pillow, django_cleanup

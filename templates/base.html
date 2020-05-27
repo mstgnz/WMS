@@ -6,9 +6,8 @@
 <head>
   <title>{% block title %}Worksite{% endblock %}</title>
   <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <link rel="stylesheet" href="{% static 'site/css/bootstrap.min.css' %}" />
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
-    integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" />
   <link rel="stylesheet" href="{% static 'site/css/custom.css' %}" />
   {% block css %}{% endblock %}
 </head>
@@ -38,8 +37,8 @@
   </div>
   {% endif %}
 
-  <script src="{% static 'site/js/jquery.min.js' %}"></script>
-  <script src="{% static 'site/js/bootstrap.min.js' %}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
   <script src="{% static 'site/js/custom.js' %}"></script>
   {% block js %}{% endblock %}
 </body>

@@ -58,7 +58,8 @@ class ContractForm(forms.ModelForm):
         model = Contract
         fields = ['worksite','category','no','date','name','price','guarantee','advance','progress','note','file']
         widgets = {
-            'date': DateInput()
+            'date': DateInput(),
+            'file': forms.FileInput(attrs={'accept': '.pdf'})
         }
 
     def __init__(self, *args, **kwargs):
@@ -79,6 +80,9 @@ class SpecificationForm(forms.ModelForm):
     class Meta:
         model = Specification
         fields = ['contract','name','file']
+        widgets = {
+            'file': forms.FileInput(attrs={'accept': '.pdf'})
+        }
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user', None)
@@ -94,6 +98,7 @@ class ProjectForm(forms.ModelForm):
         fields = ['worksite','no','date','name','category','file']
         widgets = {
             'date': DateInput(),
+            'file': forms.FileInput(attrs={'accept': '.dwg'})
         }
 
     def __init__(self, *args, **kwargs):

@@ -14,6 +14,7 @@ class MinutesForm(forms.ModelForm):
         fields = ['worksite','no','subject','note','date','labor_cost','material_cost','total_cost','file','status']
         widgets = {
             'date': DateInput(),
+            'file': forms.FileInput(attrs={'accept': '.pdf'})
         }
 
     def __init__(self, *args, **kwargs):
@@ -34,6 +35,7 @@ class WritingForm(forms.ModelForm):
         fields = ['worksite','no','subject','note','date','file']
         widgets = {
             'date': DateInput(),
+            'file': forms.FileInput(attrs={'accept': '.pdf'})
         }
 
     def __init__(self, *args, **kwargs):

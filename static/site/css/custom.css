@@ -3,7 +3,7 @@
   list-style: none;
 }
 body {
-  margin-top: 3.5em;
+  margin-top: 4em;
   background-color: #f9f8f8;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 14px;
@@ -119,6 +119,9 @@ select {
 }
 .accordion li p a i {
   margin-right: 5px;
+}
+.accordion h6.active{
+  background-color: #A1C6EA;
 }
 #tab {
   padding: 0;

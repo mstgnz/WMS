@@ -178,7 +178,7 @@ class TallyCreateView(PermissionRequiredMixin, TemplateView):
                     worksite=self.request.POST.get('worksite'), 
                     subcontractor=self.request.POST.get('subcontractor'),
                     input_date__year__lte=self.request.POST.get('year'),
-                    input_date__month__lte=self.request.POST.get('month'),
+                    #input_date__month__lte=self.request.POST.get('month'),
                     output_date__isnull=True
                 )
                 worker_filter = output_date | output_date_isnull

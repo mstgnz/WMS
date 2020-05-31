@@ -18,9 +18,9 @@ KULLANIM ve TANIMLAR
 user modeli -> user bütün işlemleri - izin ayarları - profil - login - logout
 firm modeli -> şantiye - taşeron - sözleşme - şartname - proje
 progress modeli -> hakediş - keşif - analiz
-accounting modeli -> işçi giriş çıkış - irsaliye - fatura - puantaj
+accounting modeli -> işçi giriş çıkış - irsaliye - fatura - puantaj - şantiye giderleri 
 logistics modeli -> siparişler - nakliyeler - depo
-document modeli -> tutak ve üzt yazılar
+document modeli -> tutanak ve üzt yazılar
 
 User modeli direk olarak firma modeline bağlıdır. Firması olmayan bir kullanıcı olamaz. Bu yüzden site yöneticisine ait bir örnek firma tanımlıdır. Testlerini bu firma üzerinde yapar.
 
@@ -89,5 +89,6 @@ vb tüm sorulara cevap girilen verilere göre otomatik oluşturulacaktır.
 Şantiyelere eklenen veriler şantiye iş bitiminden sonra tüm veriler arşiv olarak paketlenerek indirilebilecektir.
 Şantiye için eklenen tüm veriler media klasorü altında şantiye adına göre ekleniyor.
 
-
+hakediş tarihleri illaki gecikmeye uğrayacaktır. hakediş onay süreci olacaktır. hajediş onay süresi takip edilebilir olmalıdır.
+hakediş verildi, şu sebeple geri döndü vb. konular ile beraber not eklenebilmelidir.
 

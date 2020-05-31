@@ -1,9 +1,12 @@
-$(function(){
+$(document).ready(function(){
 
-// Accordion menu
-    $(".accordion h6").on("click", function(){
-        $(".accordion h6").css("background-color","");
-        $(this).css("background-color","#A1C6EA");
+    var path = window.location.pathname;
+    $(`.accordion h6 a[href="${path}"]`).parent('h6').addClass('active');
+    $(`.accordion h6 a[href="${path}"]`).parent('h6').next('p').css('display','block');
+    // Accordion menu
+    $(".accordion h6").on("click", function(e){
+        $(".accordion h6").removeClass('active');
+        $(this).addClass("active");
         $(".accordion li p").stop().slideUp();
         $(this).next("p").stop().slideToggle();
         span = $(this).find("span i").attr("class");
@@ -12,11 +15,11 @@ $(function(){
             $(this).find("span i").attr("class","far fa-minus-square");
         }else{
             $(this).find("span i").attr("class","far fa-plus-square");
-            $(".accordion h6").css("background-color","");
+            $(".accordion h6").removeClass('active');
         }
     });
 
-// Worksite List
+    // Worksite List
     $("#tab li:first").addClass("active");
     $(".tab_title:first").addClass("active");
     $(".tab_list:not(:first)").hide();

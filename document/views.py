@@ -11,11 +11,13 @@ from .models import Minutes, Writing, DailyReport
 from .forms import MinutesForm, WritingForm
 from firm.models import Worksite
 
-# ANASAYFA
+# RAPOR ANASAYFA
 class IndexView(TemplateView):
     template_name = 'document/minutes.html'
 
-
+# TUTANAK ANASAYFA
+class MinutesView(TemplateView):
+    template_name = 'document/minutes.html'
 
 # TUTANAK EKLE
 class MinutesCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):

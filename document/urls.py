@@ -5,6 +5,7 @@ app_name = 'document'
 
 urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),
+    path('minutes', views.MinutesView.as_view(), name='minutes'),
     path('minutes/add/', views.MinutesCreateView.as_view(), name='minutes_add'),
     path('minutes/list/', views.MinutesListView.as_view(), name='minutes_list'),
     path('minutes/list/<int:pk>/update/', views.MinutesUpdateView.as_view(), name='minutes_update'),

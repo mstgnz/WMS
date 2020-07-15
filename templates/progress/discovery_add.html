@@ -10,8 +10,8 @@
                 <form method="post" class="contract_form">
                     {% csrf_token %}
                     {{ form.worksite }}
-                    <table class="table">
-                        <tr style="border-bottom:solid 1px #ddd;">
+                    <table class="table table-borderless">
+                        <tr>
                             <td colspan="1" style="text-align:left; text-indent:5px; background:#ccc; width:10%;">Poz No</td>
                             <td colspan="1" style="text-align:left; text-indent:5px; background:#ccc; width:41%;">Poz Adı</td>
                             <td colspan="1" style="text-align:left; text-indent:5px; background:#ccc; width:10%;">Birim</td>
@@ -19,7 +19,7 @@
                             <td colspan="1" style="text-align:left; text-indent:5px; background:#ccc; width:13%;">B.Fiyat</td>
                             <td colspan="1" style="text-align:left; text-indent:5px; background:#ccc; width:13%;">Tutar</td>
                         </tr>
-                        <tr class="insert" style="border-bottom:solid 1px #ddd;">
+                        <tr class="insert">
                             <td class="no" colspan="1"><input type="text" name="no[]" required /></td>
                             <td class="name" colspan="1"><input type="text" name="name[]" class="name" required /></td>
                             <td class="unit" colspan="1">
@@ -78,6 +78,7 @@
     }
     .indis input{
         background:#eee;
+        opacity: .8;
     }
 </style>
 {% endblock %}
@@ -86,7 +87,7 @@
 <script>
     $('input[type=number]').attr('min',0) // number input minimum değerleri 0 olarak ayarlandı. Eksi değer girilemesin.
     $('a.add').click(()=>{
-        $('<tr class="append" style="border-bottom:solid 1px #ddd;"><td colspan="1"><input type="text" name="no[]" required /></td><td colspan="1"><input type="text" name="name[]" required /></td><td colspan="1"><select name="unit[]"><option value="MT">MT</option><option value="M2">M2</option><option value="M3">M3</option><option value="AD">AD</option><option value="KG">KG</option><option value="TON">TON</option><option value="SET">SET</option><option value="YEV">YEVMİYE</option></select></td><td colspan="1"><input type="number" name="amount[]" min=0 value=0 step="any" required /></td><td colspan="1"><input type="number" name="price[]" readonly min=0 value=0 step="any" required /></td><td colspan="1"><input type="number" name="total[]" readonly min=0 value=0 step="any" required /></td></tr>').insertBefore($('.insert'))
+        $('<tr class="append"><td colspan="1"><input type="text" name="no[]" required /></td><td colspan="1"><input type="text" name="name[]" required /></td><td colspan="1"><select name="unit[]"><option value="MT">MT</option><option value="M2">M2</option><option value="M3">M3</option><option value="AD">AD</option><option value="KG">KG</option><option value="TON">TON</option><option value="SET">SET</option><option value="YEV">YEVMİYE</option></select></td><td colspan="1"><input type="number" name="amount[]" min=0 value=0 step="any" required /></td><td colspan="1"><input type="number" name="price[]" readonly min=0 value=0 step="any" required /></td><td colspan="1"><input type="number" name="total[]" readonly min=0 value=0 step="any" required /></td></tr>').insertBefore($('.insert'))
     })
 
     $('a.del').click(()=>{
@@ -104,7 +105,7 @@
             success: function(result){
                 result = JSON.parse(result);
                 $.each(result, function(key, value){
-                    $('<tr class="indis" style="border-bottom:solid 1px #ddd;"><td colspan="1"><input type="text" name="no" readonly value="'+value.fields.no+'" /></td><td colspan="1"><input type="text" name="name" readonly value="'+value.fields.name+'" /></td><td colspan="1"><input type="text" name="unit" readonly value="'+value.fields.unit+'" /></td><td colspan="1"><input type="number" name="amount" readonly value="'+value.fields.amount+'" /></td><td colspan="1"><input type="number" name="price" readonly value="'+value.fields.price+'"/></td><td colspan="1"><input type="number" name="total" readonly value="'+value.fields.total+'" /></td></tr>').insertAfter($('.insert'))
+                    $('<tr class="indis"><td colspan="1"><input type="text" name="no" readonly value="'+value.fields.no+'" /></td><td colspan="1"><input type="text" name="name" readonly value="'+value.fields.name+'" /></td><td colspan="1"><input type="text" name="unit" readonly value="'+value.fields.unit+'" /></td><td colspan="1"><input type="number" name="amount" readonly value="'+value.fields.amount+'" /></td><td colspan="1"><input type="number" name="price" readonly value="'+value.fields.price+'"/></td><td colspan="1"><input type="number" name="total" readonly value="'+value.fields.total+'" /></td></tr>').insertAfter($('.insert'))
                 })
             }
         })

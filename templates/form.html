@@ -9,20 +9,24 @@
                 <form method="post" class="form" enctype="multipart/form-data">
                     {% csrf_token %}
                     {% for field in form %}
-                        <div class="input-group" style="margin-bottom:1px">
-                            <span class="input-group-addon d-none d-lg-block" id="basic-addon3" style="width:200px; text-align:left; padding:0px;">{{ field.label_tag }} <i class="fas fa-caret-left fa-lg"></i></span>
-                            <span class="form-control" id="basic-url" aria-describedby="basic-addon3" style="padding:2px;">
-                                {% if form.image == field %}
-                                <div class="customfile">
-                                    {{ field }}
-                                    <small class="help_text">{{ field.help_text }}</small>
+                        {% if form.image == field %}
+                            <div class="input-group mb-1">
+                                <div class="input-group-prepend" style="height: 35px;">
+                                    <span class="input-group-text" id="inputGroupFileAddon01">{{ field.label_tag }}</span>
                                 </div>
-                                {% else %}
+                                <div class="custom-file">
                                     {{ field }}
-                                    <small class="help_text">{{ field.help_text }}</small>
-                                {% endif %}
-                            </span>
-                        </div>
+                                    <label class="custom-file-label" for="upload">Choose file</label>
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="input-group mb-1">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">{{ field.label_tag }}</span>
+                                </div>
+                                {{ field }}
+                            </div>
+                        {% endif %}
                     {% endfor %}
                     <button type="submit" class="btn btn-outline-info button"><i class="fas fa-angle-right"></i> {{ title }} <i class="fas fa-angle-left"></i></button>
                 </form>
@@ -30,9 +34,6 @@
         </div>
     </div>
 </div>
-
-
-
 
 {% endblock %}
 

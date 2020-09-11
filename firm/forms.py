@@ -34,6 +34,13 @@ class WorksiteForm(forms.ModelForm):
         instance = getattr(self, 'instance', None)
         if instance and instance.pk:
             self.fields['name'].disabled = True
+        if instance:
+            for field in self.fields:
+                if field != "active":
+                    if field == "image":
+                        self.fields[field].widget.attrs['class'] = 'custom-file-input'
+                    else:
+                        self.fields[field].widget.attrs['class'] = 'form-control'
                                 
 
 # TAŞERON FORM
@@ -50,6 +57,9 @@ class SubcontractorForm(forms.ModelForm):
         instance = getattr(self, 'instance', None)
         if instance and instance.pk:
             self.fields['name'].disabled = True
+        if instance:
+            for field in self.fields:
+                self.fields[field].widget.attrs['class'] = 'form-control'
 
 
 # SÖZLEŞME FORM
@@ -73,6 +83,9 @@ class ContractForm(forms.ModelForm):
         instance = getattr(self, 'instance', None)
         if instance and instance.pk:
             self.fields['worksite'].disabled = True
+        if instance:
+            for field in self.fields:
+                self.fields[field].widget.attrs['class'] = 'form-control'
        
 
 # ŞARTNAME FORM
@@ -89,6 +102,10 @@ class SpecificationForm(forms.ModelForm):
         super(SpecificationForm, self).__init__(*args, **kwargs)
         if self.user:
             self.fields['contract'].queryset = Contract.objects.filter(worksite__in=self.user.worksite.filter(active=True))
+        instance = getattr(self, 'instance', None)
+        if instance:
+            for field in self.fields:
+                self.fields[field].widget.attrs['class'] = 'form-control'
 
 
 # PROJE FORM
@@ -106,4 +123,8 @@ class ProjectForm(forms.ModelForm):
         super(ProjectForm, self).__init__(*args, **kwargs)
         if self.user:
             self.fields['worksite'].queryset = self.user.worksite.filter(active=True)
+        instance = getattr(self, 'instance', None)
+        if instance:
+            for field in self.fields:
+                self.fields[field].widget.attrs['class'] = 'form-control'
 

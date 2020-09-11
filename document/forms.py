@@ -26,6 +26,10 @@ class MinutesForm(forms.ModelForm):
         instance = getattr(self, 'instance', None)
         if instance and instance.pk:
             self.fields['worksite'].disabled = True
+        if instance:
+            for field in self.fields:
+                if field != "active":
+                    self.fields[field].widget.attrs['class'] = 'form-control'
 
 
 # ÜST YAZI FORM
@@ -47,3 +51,6 @@ class WritingForm(forms.ModelForm):
         instance = getattr(self, 'instance', None)
         if instance and instance.pk:
             self.fields['worksite'].disabled = True
+        if instance:
+            for field in self.fields:
+                self.fields[field].widget.attrs['class'] = 'form-control'

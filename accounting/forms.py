@@ -44,6 +44,9 @@ class WaybillMaterialForm(forms.ModelForm):
         instance = getattr(self, 'instance', None)
         if instance and instance.pk:
             self.fields['waybill'].disabled = True
+        if instance:
+            for field in self.fields:
+                self.fields[field].widget.attrs['class'] = 'form-control'
 
 
 # İŞÇİ FORM
@@ -69,6 +72,9 @@ class WorkerForm(forms.ModelForm):
             self.fields['id_number'].disabled = True
             self.fields['worksite'].disabled = True
             self.fields['subcontractor'].disabled = True
+        if instance:
+            for field in self.fields:
+                self.fields[field].widget.attrs['class'] = 'form-control'
 
 
 # PUANTAJ FORM

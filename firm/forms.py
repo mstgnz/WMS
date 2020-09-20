@@ -17,6 +17,10 @@ class FirmForm(forms.ModelForm):
         if instance and instance.pk:
             self.fields['name'].disabled = True
             self.fields['tax'].disabled = True
+        if instance:
+            for field in self.fields:
+                self.fields[field].widget.attrs['class'] = 'form-control'
+                        
 
 
 # ŞANTİYE FORM

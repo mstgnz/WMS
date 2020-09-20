@@ -28,6 +28,13 @@ class ProfileUpdateForm(forms.ModelForm):
             'address',
             'image'
         )
+        widgets = {
+            'first_name': forms.TextInput(attrs={'class':'form-control'}),
+            'last_name': forms.TextInput(attrs={'class':'form-control'}),
+            'phone': forms.TextInput(attrs={'class':'form-control'}),
+            'address': forms.TextInput(attrs={'class':'form-control'}),
+            'image': forms.TextInput(attrs={'class':'form-control'})
+        }
 
 
 class RegisterForm(forms.ModelForm):
@@ -69,3 +76,10 @@ class StaffUpdateForm(forms.ModelForm):
             'image',
             'is_active'
         )
+        widgets = {
+            'first_name': forms.TextInput(attrs={'class':'form-control'}),
+            'last_name': forms.TextInput(attrs={'class':'form-control'}),
+            'phone': forms.TextInput(attrs={'class':'form-control'}),
+            'address': forms.TextInput(attrs={'class':'form-control'}),
+            'image': forms.TextInput(attrs={'class':'form-control'})
+        }

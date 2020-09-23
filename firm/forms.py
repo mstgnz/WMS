@@ -51,7 +51,7 @@ class WorksiteForm(forms.ModelForm):
 class SubcontractorForm(forms.ModelForm):
     class Meta:
         model = Subcontractor
-        fields = ['worksite','name','email','phone','subject','address']
+        fields = ['worksite','tax','name','email','phone','subject','address']
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user', None)

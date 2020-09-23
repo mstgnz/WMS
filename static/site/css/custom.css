@@ -44,6 +44,7 @@ select {
   background-size: 14px;
   -webkit-appearance: none;
   -moz-appearance: none;
+  box-shadow: unset !important;
 }
 .form input[type="checkbox"] {
   width: 15px;

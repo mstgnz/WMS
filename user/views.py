@@ -3,13 +3,12 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, update_session_auth_hash
-from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib import messages
 from django.contrib.auth.models import Permission
 from django.http import JsonResponse
 from django.core import serializers
 from .models import User
-from .forms import LoginForm, ProfileUpdateForm, RegisterForm, StaffUpdateForm
+from .forms import LoginForm, ProfileUpdateForm, RegisterForm, StaffUpdateForm, PasswordChangeForm
 from firm.models import Worksite
 
 

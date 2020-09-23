@@ -113,6 +113,8 @@ class Worksite(models.Model):
 class Subcontractor(models.Model):
     firm = models.ForeignKey('Firm', verbose_name='Firma', related_name="subcontractors", on_delete=models.CASCADE)
     worksite = models.ManyToManyField('Worksite', related_name="subcontractors", verbose_name='Şantiye')
+    # Taşeron bir firma ise ve ilerde bu sistemi kullanırsa vergi no ile eşlerek şantiyesine eklenecektir.
+    tax = models.CharField(max_length=10, verbose_name="Vergi Numarası", blank=True, null=True,validators=[RegexValidator(r'^\d{10}$')], help_text="Eklenen taşeron bir firma ise vergi numarası girilmelidir.")
     name = models.CharField(max_length=50, unique=True, verbose_name="Taşeron Adı")
     email = models.EmailField(max_length=50, verbose_name="Email")
     phone = models.CharField(max_length=10, verbose_name="Telefon", validators=[RegexValidator(r'^\d{10}$')])

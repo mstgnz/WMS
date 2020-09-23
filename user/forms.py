@@ -17,6 +17,11 @@ class LoginForm(forms.Form):
                 raise forms.ValidationError("Kullanıcı adını veya şifreyi yanlış girdiniz!")
         return super(LoginForm, self).clean()
 
+class PasswordChangeForm(PasswordChangeForm):
+    old_password = forms.CharField(label=("Şu Anki Şifreniz"),widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+    new_password1 = forms.CharField(label=("Yeni Şifreniz"),widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+    new_password2 = forms.CharField(label=("Yeni Şifreniz (tekrar)"),widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+
 
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:

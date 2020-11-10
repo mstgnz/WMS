@@ -18,9 +18,11 @@ class SubcontractorSerializer(serializers.HyperlinkedModelSerializer):
         fields = ['url','worksite','name','email','phone','subject','address']
 
 class ContractSerializer(serializers.HyperlinkedModelSerializer):
+    #subcontractor = serializers.HyperlinkedRelatedField(many=True, view_name='subcontractor', read_only=True)
+
     class Meta:
         model = Contract
-        fields = ['url','worksite','category','no','date','name','price','guarantee','advance','progress','note','file']
+        fields = ['url','worksite','subcontractor','no','date','name','price','guarantee','advance','progress','note','file']
 
 class SpecificationSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:

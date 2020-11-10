@@ -70,7 +70,7 @@ class SubcontractorForm(forms.ModelForm):
 class ContractForm(forms.ModelForm):
     class Meta:
         model = Contract
-        fields = ['worksite','category','no','date','name','price','guarantee','advance','progress','note','file']
+        fields = ['worksite','subcontractor','no','date','name','price','guarantee','advance','progress','note','file']
         widgets = {
             'date': DateInput(),
             'file': forms.FileInput(attrs={'accept': '.pdf'})
@@ -87,6 +87,7 @@ class ContractForm(forms.ModelForm):
         instance = getattr(self, 'instance', None)
         if instance and instance.pk:
             self.fields['worksite'].disabled = True
+            self.fields['subcontractor'].disabled = True
         if instance:
             for field in self.fields:
                 self.fields[field].widget.attrs['class'] = 'form-control'

@@ -136,14 +136,10 @@ class Subcontractor(models.Model):
 
 # SÖZLEŞME
 class Contract(models.Model):
-    category = (
-        ("Firma", "Firma"),
-        ("Taşeron", "Taşeron")
-    )
     worksite = models.ForeignKey('Worksite', verbose_name='Şantiye', related_name="contracts", on_delete=models.CASCADE)
-    category = models.CharField(max_length=10, verbose_name="Kategori", choices=category)
+    subcontractor = models.ForeignKey('Subcontractor', blank=True, null=True, verbose_name='Taşeron', related_name="subcontractors", on_delete=models.CASCADE)
     no = models.CharField(max_length=10, verbose_name="Sözleşme No")
-    name = models.CharField(max_length=50, verbose_name="Sözleşme Adı", help_text="Taşeron sözleşmesi ise sözleşme adını taşeron adı olarak giriniz.")
+    name = models.CharField(max_length=50, verbose_name="Sözleşme Adı")
     date = models.DateField(verbose_name="Sözleşme Tarihi")
     price = models.DecimalField(max_digits=12, decimal_places=2, verbose_name="Sözleşme Bedeli")
     guarantee = models.DecimalField(max_digits=9, decimal_places=2, blank=True, null=True, verbose_name="Teminat Bedeli")

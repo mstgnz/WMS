@@ -1,0 +1,6 @@
+{% for field in form %}
+    <div class="input-group">
+        <span class="input-group-addon" id="basic-addon3" style="width:150px;">{{ field.label_tag }}</span>
+        <span class="form-control" id="basic-url" aria-describedby="basic-addon3">{{ field }}</span>
+    </div>
+{% endfor %}

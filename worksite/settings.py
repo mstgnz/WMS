@@ -129,7 +129,7 @@ LOGIN_EXEMPT_URLS = (
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')] # collectstatic çalıştırılırken deaktif edilecektir. Localhostta aktif
-#STATIC_ROOT = os.path.join(BASE_DIR, 'static') # collectstatic çalıştırılırken aktif edilecektir. Sunucuda aktif
+#STATIC_ROOT = os.path.join(BASE_DIR, 'static/') # collectstatic çalıştırılırken aktif edilecektir. Sunucuda aktif
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -146,14 +146,22 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
     ),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10
-}
-
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-        'LOCATION': '127.0.0.1:11211',
+    'PAGE_SIZE': 10,
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.ScopedRateThrottle',
+        'rest.throttles.PostThrottle'
+    ],
+    'DEFAULT_THROTTLE_RATES':{
+        'toManyRequest': '5/minute',
+        'toManyPost': '2/hour'
     }
 }
+
+#CACHES = {
+#    'default': {
+#        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+#        'LOCATION': '127.0.0.1:11211',
+#    }
+#}
 
 # Dependencies -> mysqlclient, Pillow, django_cleanup, graphene_django, djangorestframework

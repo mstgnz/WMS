@@ -10,7 +10,7 @@ class FirmSerializer(serializers.HyperlinkedModelSerializer):
 class WorksiteSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Worksite
-        fields = ['url','name','employer','name_of_job','control','construction_area','threader_no','island_no','parcel_no','phone','fax','address','image','start_date','end_date','active']
+        fields = ['url','firm','name','employer','name_of_job','control','construction_area','threader_no','island_no','parcel_no','phone','fax','address','image','start_date','end_date','active']
 
 class SubcontractorSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:

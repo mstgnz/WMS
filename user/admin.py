@@ -10,7 +10,7 @@ class MyUserAdmin(UserAdmin):
     fieldsets = (
         (None, {'fields': ('password',)}),
         ('Personel Info', {'fields': ('email','first_name','last_name','phone','address','image','firm')}),
-        ('Permissions', {'fields': ('user_permissions',)}),
+        ('Permissions', {'fields': ('groups','user_permissions')}),
         ('Authority', {'fields': ('is_active','is_staff','is_superuser')}),
     )
     add_fieldsets = (
@@ -21,10 +21,10 @@ class MyUserAdmin(UserAdmin):
     )
     search_fields = ('email','first_name', 'last_name')
     ordering = ('email',)
-    filter_horizontal = ('user_permissions',)
+    filter_horizontal = ('groups','user_permissions')
 
 
 
 admin.site.site_header = "MstGnz"
 admin.site.register(User, MyUserAdmin)
-admin.site.unregister(Group)
+#admin.site.unregister(Group)

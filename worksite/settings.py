@@ -79,8 +79,10 @@ DATABASES = {
         'NAME'     : 'worksite',
         'HOST'     : '127.0.0.1',
         'USER'     : 'root',
-        'PASSWORD' : ''
+        'PASSWORD' : 'Mes1a3*2'
     }
+    # eğer bu hatayı alırsan : NameError: name '_mysql' is not defined
+    # çalıştır : export DYLD_LIBRARY_PATH=/usr/local/mysql/lib/
 }
 
 # Password validation
@@ -154,4 +156,4 @@ CACHES = {
     }
 }
 
-# Dependencies -> mysqlclient, Pillow, django_cleanup
+# Dependencies -> mysqlclient, Pillow, django_cleanup, graphene_django, djangorestframework

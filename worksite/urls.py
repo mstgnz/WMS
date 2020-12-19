@@ -9,7 +9,7 @@ from . import ajax
 # URL
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('rest/', include('rest.urls')),
+    path('api/', include('api.urls')),
     path('graphql', GraphQLView.as_view(graphiql=True)),
     path('user/', include('user.urls')),
     path('firm/', include('firm.urls')),

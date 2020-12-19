@@ -19,6 +19,7 @@ class Discovery(models.Model):
 
     class Meta:
         db_table = 'Discovery'
+        ordering = ['-id']
 
     def __str__(self):
         return self.name
@@ -40,6 +41,7 @@ class Analysis(models.Model):
 
     class Meta:
         db_table = 'Analysis'
+        ordering = ['-id']
 
     def __str__(self):
         return self.detail
@@ -58,6 +60,7 @@ class AnalysisDetail(models.Model):
 
     class Meta:
         db_table = 'Analysis_Detail'
+        ordering = ['-id']
 
     def __str__(self):
         return self.definition
@@ -101,6 +104,7 @@ class Progress(models.Model):
 
     class Meta:
         db_table = 'Progress'
+        ordering = ['-id']
 
     def __str__(self):
         return str(self.no)
@@ -123,6 +127,7 @@ class Synopsis(models.Model):
 
     class Meta:
         db_table = 'Synopsis'
+        ordering = ['-id']
     
     def __str__(self):
         return self.name

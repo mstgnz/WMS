@@ -22,6 +22,7 @@ class Minutes(models.Model):
 
     class Meta:
         db_table = 'Minutes'
+        ordering = ['-id']
 
     def __str__(self):
         return self.subject
@@ -47,6 +48,7 @@ class Writing(models.Model):
 
     class Meta:
         db_table = 'Writing'
+        ordering = ['-id']
 
     def __str__(self):
         return self.subject
@@ -78,6 +80,7 @@ class DailyReport(models.Model):
 
     class Meta:
         db_table = 'Daily_Report'
+        ordering = ['-id']
 
     def __str__(self):
         return self.date

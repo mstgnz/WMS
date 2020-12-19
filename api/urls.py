@@ -18,5 +18,5 @@ router.register(r'synopsis', views.SynopsisViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('/', include('rest_framework.urls', namespace='rest_framework'))
+    path('/', include('rest_framework.urls', namespace='api'))
 ]

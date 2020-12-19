@@ -24,6 +24,7 @@ class Waybill(models.Model):
 
     class Meta:
         db_table = 'Waybill'
+        ordering = ['-id']
 
     def __str__(self):
         return self.vendor
@@ -50,6 +51,7 @@ class WaybillMaterial(models.Model):
 
     class Meta:
         db_table = 'Waybill_Material'
+        ordering = ['-id']
 
     def __str__(self):
         return self.name
@@ -74,6 +76,7 @@ class Worker(models.Model):
 
     class Meta:
         db_table = 'Worker'
+        ordering = ['-id']
     
     def __str__(self):
         return self.full_name
@@ -105,6 +108,7 @@ class Tally(models.Model):
 
     class Meta:
         db_table = 'Tally'
+        ordering = ['-id']
     
     def __str__(self):
         return self.worker
@@ -124,6 +128,7 @@ class Order(models.Model):
 
     class Meta:
         db_table = 'Order'
+        ordering = ['-id']
     
     def __str__(self):
         return self.name
@@ -142,6 +147,7 @@ class OrderMaterial(models.Model):
 
     class Meta:
         db_table = 'Order_Material'
+        ordering = ['-id']
 
     def __str__(self):
         return self.name

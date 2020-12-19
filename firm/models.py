@@ -26,6 +26,7 @@ class Firm(models.Model):
 
     class Meta:
         db_table = 'Firm'
+        ordering = ['-id']
 
     def __str__(self):
         return self.name
@@ -79,6 +80,7 @@ class Worksite(models.Model):
 
     class Meta:
         db_table = 'Worksite'
+        ordering = ['-id']
 
     def __str__(self):
         return self.name
@@ -123,6 +125,7 @@ class Subcontractor(models.Model):
 
     class Meta:
         db_table = 'Subcontractor'
+        ordering = ['-id']
 
     def __str__(self):
         return self.name
@@ -151,6 +154,7 @@ class Contract(models.Model):
 
     class Meta:
         db_table = 'Contract'
+        ordering = ['-id']
 
     def __str__(self):
         return self.name
@@ -173,6 +177,7 @@ class Specification(models.Model):
 
     class Meta:
         db_table = 'Specification'
+        ordering = ['-id']
 
     def get_absolute_url(self):
         return reverse('firm:contract_specification_update', kwargs={'pk':self.pk})
@@ -202,6 +207,7 @@ class Project(models.Model):
 
     class Meta:
         db_table = 'Project'
+        ordering = ['-id']
 
     def get_absolute_url(self):
         return reverse('firm:project_update', kwargs={'pk':self.pk})

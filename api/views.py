@@ -35,6 +35,9 @@ class SubcontractorViewSet(viewsets.ModelViewSet):
     permission_classes = [DjangoModelPermissions]
     throttle_scope = 'toManyPost'
 
+    def perform_create(self, serializer):
+        serializer.save(firm=Firm.objects.get(pk=self.request.user.firm.pk))
+
 
 class ContractViewSet(viewsets.ModelViewSet):
     queryset = Contract.objects.all()

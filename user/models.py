@@ -48,6 +48,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     class Meta:
         db_table = 'user'
+        ordering = ['-id']
 
     def __str__(self):
         return self.email
@@ -83,6 +84,7 @@ class Logger(models.Model):
 
     class Meta:
         db_table = 'Logger'
+        ordering = ['-id']
 
     def __str__(self):
         return self.name

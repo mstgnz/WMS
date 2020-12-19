@@ -149,11 +149,11 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 10,
     'DEFAULT_THROTTLE_CLASSES': [
         'rest_framework.throttling.ScopedRateThrottle',
-        'rest.throttles.PostThrottle'
+        'api.throttles.PostThrottle'
     ],
     'DEFAULT_THROTTLE_RATES':{
         'toManyRequest': '5/minute',
-        'toManyPost': '2/hour'
+        'toManyPost': '2/minute'
     }
 }
 

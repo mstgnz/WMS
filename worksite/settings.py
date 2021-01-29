@@ -123,6 +123,7 @@ LOGIN_REDIRECT_URL = '/user/'
 LOGOUT_REDIRECT_URL = '/'
 LOGIN_EXEMPT_URLS = (
     r'^$',
+    r'^api/',
     r'^user/login/$',
     r'^user/password/reset$'
 )
@@ -152,8 +153,8 @@ REST_FRAMEWORK = {
         'api.throttles.PostThrottle'
     ],
     'DEFAULT_THROTTLE_RATES':{
-        'toManyRequest': '5/minute',
-        'toManyPost': '2/minute'
+        'toManyRequest': '5/second',
+        'toManyPost': '2/second'
     }
 }
 

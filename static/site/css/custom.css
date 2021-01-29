@@ -171,3 +171,6 @@ select {
 .help_text {
   color: cadetblue;
 }
+.uppercase{
+  text-transform: uppercase;
+}

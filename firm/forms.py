@@ -45,6 +45,8 @@ class WorksiteForm(forms.ModelForm):
                         self.fields[field].widget.attrs['class'] = 'custom-file-input'
                     else:
                         self.fields[field].widget.attrs['class'] = 'form-control'
+                if field in ['threader_no','island_no','parcel_no']:
+                    self.fields[field].widget.attrs['class'] += ' uppercase'
                                 
 
 # TAŞERON FORM
